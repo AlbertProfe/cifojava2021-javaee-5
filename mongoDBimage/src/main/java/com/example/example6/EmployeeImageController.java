@@ -24,7 +24,7 @@ public class EmployeeImageController {
 	private EmployeeImageRepository employeeImageRepository;
 
 	@PostMapping("/employeeImage")
-	public EmployeeImage addBookImage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
+	public EmployeeImage addEmployeeImage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
 		
 		EmployeeImage employeeImage = new EmployeeImage();
 		employeeImage.setName(name);
@@ -34,7 +34,7 @@ public class EmployeeImageController {
 	}
 
 	@GetMapping("/getEmployeeImageData")
-	public String getBookImageData(@RequestParam String id) {
+	public String getEmployeeImageData(@RequestParam String id) {
 		
 		
 		Optional<EmployeeImage> employeeImage = employeeImageRepository.findById(id);
@@ -45,7 +45,7 @@ public class EmployeeImageController {
 	}
 
 	@GetMapping("/getEmployeeImage")
-	public ResponseEntity<byte[]> getBookImage(@RequestParam String id) throws SQLException {
+	public ResponseEntity<byte[]> getEmployeeImage(@RequestParam String id) throws SQLException {
 		
 		Optional<EmployeeImage> employeeImage = employeeImageRepository.findById(id);
 		
