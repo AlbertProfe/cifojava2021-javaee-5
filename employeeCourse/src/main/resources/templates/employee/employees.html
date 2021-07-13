@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+#myInput {
+	background-image: url('/css/searchicon.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 50%;
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="w3-container w3-margin">
+			<p>employees table</p>
+			<input type="text" id="myInput" onkeyup="myFunction()"
+				placeholder="Search for anything.." title="Type in a name">
+		</div>
+
+		<table id="myTable"
+			class="w3-table-all w3-card-4 w3-padding-64 w3-margin"
+			style="width: 80%">
+			<tr class="w3-black w3-hover-teal">
+				<td>id</td>
+				<td>name</td>
+				<td>surname</td>
+				<td>age</td>
+				<td>email</td>
+				<td>salary</td>
+				<td>password</td>
+				<td>actions</td>
+			</tr>
+			<tr th:each="employee:${employeeListfromControllerAndDB}">
+
+				<td th:text="${employee.id}"></td>
+				<td th:text="${employee.name}"></td>
+				<td th:text="${employee.surname}"></td>
+				<td th:text="${employee.age}"></td>
+				<td th:text="${employee.email}"></td>
+				<td th:text="${employee.monthSalary}"></td>
+				<td th:text="${employee.password}"></td>
+
+				<td><a th:href="@{deleteEmployee(id=${employee.id})}"
+					class="w3-button w3-small w3-red">Delete</a> <a
+					th:href="@{detailEmployee(id=${employee.id})}"
+					class="w3-button w3-small w3-teal">Detail</a> <a
+					th:href="@{updateEmployee(id=${employee.id})}"
+					class="w3-button w3-small w3-blue">Update</a></td>
+
+
+			</tr>
+		</table>
+		<script>
+			function myFunction() {
+				var input, filter, table, tr, td, cell, i, j;
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTable");
+				tr = table.getElementsByTagName("tr");
+				for (i = 1; i < tr.length; i++) {
+					// Hide the row initially.
+					tr[i].style.display = "none";
+
+					td = tr[i].getElementsByTagName("td");
+					for (var j = 0; j < td.length; j++) {
+						cell = tr[i].getElementsByTagName("td")[j];
+						if (cell) {
+							if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+								tr[i].style.display = "";
+								break;
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</div>
+
+</body>
+</html>

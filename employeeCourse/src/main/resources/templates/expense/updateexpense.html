@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+		
+			<div class="w3-container w3-card-4 w3-display-middle"
+				style="width: 50%;">
+
+				<p>Update expense to the H2 DB</p>
+				<form action="#"
+					th:action="@{/expense/replaceExpense/{idFromView}(idFromView=${expensefromController.id})}"
+					th:object="${expensefromController}" method="post">
+
+
+					<p>
+						<label class="w3-text-gray"><b>id</b></label> <input
+							class="w3-input w3-border w3-light-grey" name="id" type="number"
+							th:field="*{id}" readonly>
+					</p>
+
+					<p>
+						<label class="w3-text-gray"><b>Name</b></label> <input
+							class="w3-input w3-border w3-light-grey" name="name"
+							th:field="*{name}" type="text" required>
+					</p>
+					
+					<p>
+						<label class="w3-text-gray"><b>Value</b></label> <input
+							class="w3-input w3-border w3-light-grey" name="monthSalary"
+							th:field="*{value}" step="0.01" min="0" type="number"
+							value=0.0>
+					</p>
+
+					<p>
+						<button class="w3-btn w3-teal">update expense</button>
+					</p>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+
+
+
+
+
+
+
+<div class="w3-container w3-card-4 w3-display-middle w3-center"
+	style="width: 50%;">
+
+	<p>How many employees do you want to create?</p>
+
+	<a th:href="@{/fillinemployee(qtyToCreate=10)}"
+		class="w3-button w3-teal">Create 10 employees</a>
+	<p></p>
+	<a th:href="@{/fillinemployee(qtyToCreate=100)}"
+		class="w3-button w3-teal">Create 100 employees</a>
+	<p></p>
+	<a th:href="@{/fillinemployee(qtyToCreate=1000)}"
+		class="w3-button w3-teal">Create 1000 employees</a>
+	<p></p>
+	<a th:href="@{/fillinemployee(qtyToCreate=5000)}"
+		class="w3-button w3-teal">Create 5000 employees</a>
+	<p></p>
+	<a th:href="@{/fillinemployee(qtyToCreate=10000)}"
+		class="w3-button w3-teal">Create 10000 employees</a>
+
+	<p>Delete all employees</p>
+
+	<a th:href="@{/employee/deleteAllEmployees}" class="w3-button w3-red">Delete
+		all employees</a>
+	<p></p>
+	<p></p>
+
+</div>
+</div></body>
+</html>

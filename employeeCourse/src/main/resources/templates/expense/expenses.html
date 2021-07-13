@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+</head>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+#myInput {
+	background-image: url('/css/searchicon.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 50%;
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
+</style>
+<body>
+
+	<div layout:fragment="content">
+
+
+
+		<div th:if="${expenseAdded}"
+			class="w3-panel w3-teal w3-center  w3-display-container">
+			<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-teal w3-large w3-display-topright">x</span>
+			<h3>Expense added!</h3>
+			<p th:text="${expenseAdded}">></p>
+		</div>
+
+		<div th:if="${expenseUpdated}"
+			class="w3-panel w3-blue w3-center  w3-display-container">
+			<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-blue w3-large w3-display-topright">x</span>
+			<h3>Expense updated!</h3>
+			<p th:text="${expenseUpdated}">></p>
+		</div>
+
+		<div th:if="${expenseDeleted}"
+			class="w3-panel w3-red w3-center w3-display-container">
+			<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-red w3-large w3-display-topright">x</span>
+			<h3>Expense deleted!</h3>
+			<p th:text="${expenseDeleted}">></p>
+		</div>
+
+		<div class="w3-container w3-margin">
+			<p>expenses table</p>
+			<input type="text" id="myInput" onkeyup="myFunction()"
+				placeholder="Search for anything.." title="Type in a name">
+		</div>
+
+		<table id="myTable"
+			class="w3-table-all w3-card-4 w3-padding-64 w3-margin"
+			style="width: 80%">
+
+			<tr class="w3-black w3-hover-teal">
+				<td>id</td>
+				<td>name</td>
+				<td>date</td>
+				<td>value</td>
+				<td>operations</td>
+			</tr>
+			<tr th:each="expense:${expensesfromController}">
+				<td th:text="${expense.id}"></td>
+				<td th:text="${expense.name}"></td>
+				<td th:text="${#dates.format(expense.date,'dd-MMM-yyyy')}"></td>
+				<td th:text="${expense.value}"></td>
+
+				<td><a th:href="@{deleteExpense(id=${expense.id})}"
+					class="w3-button w3-small w3-red">Delete</a> <a
+					th:href="@{updateExpense(id=${expense.id})}"
+					class="w3-button w3-small w3-blue">Update</a></td>
+			</tr>
+		</table>
+		<script>
+			function myFunction() {
+				var input, filter, table, tr, td, cell, i, j;
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTable");
+				tr = table.getElementsByTagName("tr");
+				for (i = 1; i < tr.length; i++) {
+					// Hide the row initially.
+					tr[i].style.display = "none";
+
+					td = tr[i].getElementsByTagName("td");
+					for (var j = 0; j < td.length; j++) {
+						cell = tr[i].getElementsByTagName("td")[j];
+						if (cell) {
+							if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+								tr[i].style.display = "";
+								break;
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</div>
+
+</body>
+
+</html>
