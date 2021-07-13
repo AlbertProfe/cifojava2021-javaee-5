@@ -9,7 +9,15 @@ JPA @Entity Employee and Images uploading/downloading
 - Database: H2 (local or in Memory) and ddl.auto **for data**
 - MongoDB connection and db **for images**
 
+## employeeCourse (java-EE spring)
 
+- employeeCourse: 
+   - Application.properties: mongoDB and H2
+   - Java classes JPA
+      - n:m TA as two @Entity and 1:n n:1 1:n
+      - Employee <> Expense
+      - Employee <> Holidays
+      - Employee <> Enrollment <> Course <> Certificate  
 
 
 ## mongoDBimage (java-EE spring)
