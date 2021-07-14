@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+		<form th:action="@{/employee/insertCourse}" th:object="${employee}"
+			method="post">
+			<!-- Page Container -->
+			<div class="w3-container w3-content"
+				style="max-width: 1400px; margin-top: 80px">
+				<!-- The Grid -->
+				<div class="w3-row">
+					<!-- Left Column -->
+					<div class="w3-col m4">
+						<!-- Employee -->
+						<div class="w3-card-4" th:object="${course}">
+							<header class="w3-container w3-light-grey">
+								<h3>Course</h3>
+
+							</header>
+							<div class="w3-container">
+								<p>Select course</p>
+								<p></p>
+								<hr>
+								<div class="w3-dropdown-hover w3-center">
+									<select class="w3-button w3-blue" id="selectCourse"
+										name="idCourse">
+
+										<option th:value="0">No course</option>
+										<option th:each="course : ${coursesfromController}"
+											th:value="${course.id}"
+											th:text="${course.id}+' : '+${course.fee}+'  '+${course.teacher}"></option>
+									</select>
+								</div>
+								<br><br>
+								<hr>
+								<div class="w3-container "
+									th:each="course:${coursesfromController}">
+									<ul class="w3-ul w3-card-4">
+										<li class="w3-bar">
+										 <span onclick="this.parentElement.style.display='none'" class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
+										 <img src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+											<div class="w3-bar-item">
+											 <span class="w3-large" th:text="${course.id}"></span><br>
+											  <span  th:text="${course.fee}"></span><br>
+											   <span th:text="${course.teacher}"></span><br>
+										</div>
+											
+											</li>
+
+									</ul>
+
+
+									
+								</div>
+								<br><br>
+							</div>
+							<button class="w3-button w3-block w3-dark-grey">+ Add
+								course</button>
+						</div>
+
+						<br>
+
+
+
+						<!-- End Left Column -->
+					</div>
+
+					<!-- Middle Column -->
+					<div class="w3-col m6">
+
+						<div class="w3-row-padding">
+							<div class="w3-col m12">
+
+
+								<!-- Course -->
+								<div class="w3-card-4"
+									th:each="employee:${employeefromController}">
+									<header class="w3-container w3-light-grey">
+										<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
+
+									</header>
+									<div class="w3-container">
+										<p>Pending update Holidays and Expenses</p>
+										<p></p>
+										<hr>
+										<img
+											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											alt="Avatar" class="w3-left w3-circle w3-margin-right"
+											style="width: 60px">
+										<p>CEO at Mighty Schools. Marketing and Advertising.
+											Seeking a new job and new opportunities.</p>
+										<br>
+										<p th:text="${employee.email}"></p>
+										<p th:text="${employee.age}"></p>
+										<p th:text="${employee.monthSalary}"></p>
+										<p th:text="${employee.password}"></p>
+										<hr>
+										<div class="w3-container w3-center">
+
+											<a th:href="@{deleteEmployee(id=${employee.id})}"
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a>
+
+
+
+											<hr>
+										</div>
+									</div>
+									<button class="w3-button w3-block w3-dark-grey">+ Add
+										course</button>
+								</div>
+
+
+
+							</div>
+						</div>
+
+
+
+						<!-- End Middle Column -->
+					</div>
+
+					<!-- Right Column -->
+					<div class="w3-col m2">
+						<div class="w3-card w3-round w3-white w3-center">
+							<div class="w3-container">
+								<p>Upcoming Events:</p>
+								<i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
+								<p>
+									<strong>Holiday</strong>
+								</p>
+								<p>Friday 15:00</p>
+								<p>
+									<button class="w3-button w3-block w3-theme-l4">Info</button>
+								</p>
+							</div>
+						</div>
+						<br>
+
+
+
+						<!-- End Right Column -->
+					</div>
+
+					<!-- End Grid -->
+				</div>
+
+				<!-- End Page Container -->
+			</div>
+
+
+
+		</form>
+
+	</div>
+
+
+</body>
+</html>
