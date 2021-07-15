@@ -1,16 +1,17 @@
 package dev.example.employeeCourse.boot.controller;
 
 
-import java.util.Optional;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import dev.example.employeeCourse.boot.model.Employee;
+import dev.example.employeeCourse.boot.model.Enrollment;
+import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 
@@ -24,6 +25,9 @@ public class EmployeeController {
 	
 	@Autowired
 	CourseRepository courseRepository;
+	
+	@Autowired
+	CertificateRepository certificateRepository;
 
 	@RequestMapping("/allEmployees")
 	public String getAllEmployees(Model boxToView) {
@@ -145,7 +149,7 @@ public class EmployeeController {
 			return "home/notfound.html";
 	}
 	
-	//-----------------------detail----------------------------------
+	//----------------------- enrollment ----------------------------------
 		@RequestMapping("/addCourse")
 		public String addCourseEmployee(int id, Model model) {
 
@@ -155,6 +159,7 @@ public class EmployeeController {
 
 				model.addAttribute("employeefromController", employeeFound.get());
 				model.addAttribute("coursesfromController", courseRepository.findAll());
+				model.addAttribute("certificatesfromController", certificateRepository.findAll());
 				
 				return "employee/addcourseemployee";
 			}

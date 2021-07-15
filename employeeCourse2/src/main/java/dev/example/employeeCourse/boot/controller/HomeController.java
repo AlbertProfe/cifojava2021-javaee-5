@@ -107,6 +107,8 @@ public class HomeController {
 					));
 			
 			
+			
+			
 			count++;
 			
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
@@ -114,13 +116,7 @@ public class HomeController {
 			
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+		courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";
 	}

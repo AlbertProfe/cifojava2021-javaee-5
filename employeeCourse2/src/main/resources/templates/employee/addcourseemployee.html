@@ -8,25 +8,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<head>
-<title>Welcome to our site</title>
+<style>
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+	background: #ddd;
+}
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+</style>
 </head>
 
 <body>
 	<!-- Fragment-->
 	<div layout:fragment="content">
-		
+
 		<!-- Form -->
 		<form th:action="@{/employee/insertCourse}" th:object="${employee}"
 			method="post">
-			
+
 			<!-- Page Container -->
 			<div class="w3-container w3-content"
-				style="max-width: 1400px; margin-top: 80px">
-				
+				style="max-width: 1600px; margin-top: 50px">
+
 				<!-- The Grid -->
 				<div class="w3-row">
 
@@ -103,7 +132,7 @@
 							<div class="w3-container">
 								<p>Select course</p>
 								<p></p>
-								<hr>
+								<!-- <hr>
 								<div class="w3-dropdown-hover w3-center">
 									<select class="w3-button w3-blue" id="selectCourse"
 										name="idCourse">
@@ -114,22 +143,31 @@
 											th:text="${course.fee}+'  '+${course.teacher}+' - Room: '+${course.room}"></option>
 									</select>
 								</div>
-								<br> <br>
+								<br> <br> -->
 								<hr>
 								<div class="w3-container "
 									th:each="course:${coursesfromController}">
-									<ul class="w3-ul w3-card-4">
-										<li class="w3-bar"><span
-											onclick="this.parentElement.style.display='none'"
-											class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
-											<img
+									<ul id="coursesUL" class="w3-ul w3-card-4">
+										<li class="w3-bar">
+										<span onclick="this.parentElement.style.display='none'"
+											class="w3-bar-item w3-button w3-small w3-right">×</span>
+											
+									<span onclick="addtolist(this)"
+											class="w3-bar-item w3-button w3-xlarge w3-left">+</span>
+											
+											
+										<img
 											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
 											class="w3-bar-item w3-circle w3-hide-small"
 											style="width: 85px">
 											<div class="w3-bar-item">
-												<span class="w3-large" th:text="${course.id}"></span><br>
-												<span th:text="${course.fee}"></span><br> <span
-													th:text="${course.teacher}"></span><br>
+												<span class="w3-large" th:text="${'id course: IFCT-'+ course.id}"></span><br>
+												<span
+													th:text="${course.teacher}+' - Room: '+${course.room}+ '   Fee: ' +${course.fee}+ ' €  '
+												+${#dates.format(course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${course.calendarCourse}"></span><br>
+												<span
+													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hous'"></span>
+												<br>
 											</div></li>
 
 									</ul>
@@ -145,13 +183,8 @@
 
 						<br>
 
-
-
-
 					</div>
 					<!-- End Right Column -->
-
-
 
 				</div>
 				<!-- End Grid -->
@@ -162,7 +195,18 @@
 
 		</form>
 		<!-- End Form -->
-		
+		<br> <br> <br>
+		<script type="text/javascript">
+			function addtolist(x) {
+				
+			var list = document.querySelector('ul');
+			list.addEventListener('click', function(ev) {
+			  if (ev.target.tagName === 'LI') {
+			    ev.target.classList.toggle('checked');
+			  }
+			}, false);
+			}
+		</script>
 	</div>
 	<!-- End Fragment-->
 
