@@ -6,14 +6,19 @@ import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.javafaker.Faker;
 
+import dev.example.employeeCourse.boot.model.Certificate;
+import dev.example.employeeCourse.boot.model.Course;
 import dev.example.employeeCourse.boot.model.Employee;
 import dev.example.employeeCourse.boot.model.Expense;
+import dev.example.employeeCourse.boot.repository.CertificateRepository;
+import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 
@@ -24,6 +29,10 @@ public class HomeController {
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private ExpenseRepository expenseRepository;
+	@Autowired
+	private CertificateRepository certificateRepository;
+	@Autowired
+	private CourseRepository courseRepository;
 
 	// ------------------------------home ---------------------------
 	@RequestMapping({ "/home", "/" })
@@ -64,6 +73,7 @@ public class HomeController {
 		int count = 0;
 		int intRandom;
 		int intRandom2;
+		
 		while (count < qtyToCreate) {
 
 			stringRandom1 = alphabetChars.charAt(createIntRandom(alphabetChars.length()));
@@ -80,13 +90,37 @@ public class HomeController {
 			employeeRepository.save(new Employee(faker.name().firstName(), faker.name().lastName(),
 					faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
 					faker.number().randomDouble(2, 5, 2000),
-					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3));
+					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3
+					));
 
 			expenseRepository.save(new Expense(faker.beer().name(), faker.date().birthday(0, 3),
-					faker.number().randomDouble(2, 50, 2000)));
-
+					faker.number().randomDouble(2, 50, 2000)
+					));
+			
+			certificateRepository.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(), 
+					faker.number().numberBetween(100, 800), faker.number().numberBetween(1, 8) , true
+					));
+			
+			courseRepository.save(new Course( "room_" + faker.number().numberBetween(45,108) + "B", false, 
+					faker.date().birthday(0, 3) ,faker.date().birthday(0, 3) , 
+					"mornings", faker.number().randomDouble(2, 1550, 20000), faker.name().firstName() +" " +  faker.name().lastName()
+					));
+			
+			
 			count++;
+			
+			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
+			
+			
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 
 		return "redirect:/employee/allEmployees";
 	}

@@ -40,10 +40,21 @@ public class EmployeeImageController {
 			throws IOException {
 
 		EmployeeImage employeeImage = new EmployeeImage();
+		System.out.println("id of employeeIMage: " +  employeeImage.getId());
 		employeeImage.setName(name);
 		employeeImage.setImage(new Binary(file.getBytes()));
-
-		return employeeImageRepository.save(employeeImage);
+		
+		
+		
+		EmployeeImage employeeImageSaved =  employeeImageRepository.save(employeeImage);
+		System.out.println("id of employeeIMage: " +  employeeImageSaved.getId());
+		
+		//employee.setFID_employee(employeeImageSaved.getId());
+		//employeeRepository.save(employee);
+		
+		
+		return employeeImageSaved;
+		
 	}
 
 	// -----------------------------------CRUD: read, EmployeeImage-------------------------------------------------------
@@ -87,5 +98,32 @@ public class EmployeeImageController {
 		return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
 
 	}
+	
+	
+	/*
+	 * @PostMapping("/employeeImageRelated") public void addEmployeeImageRelated
+	 * (@RequestParam String name, @RequestParam MultipartFile file, Employee
+	 * employee) throws IOException {
+	 * 
+	 * 
+	 * 
+	 * 
+	 * EmployeeImage employeeImage = new EmployeeImage(); employeeImage.getId();
+	 * employeeImage.setName(name); employeeImage.setImage(new
+	 * Binary(file.getBytes()));
+	 * 
+	 * 
+	 * EmployeeImage employeeImageWihtId =
+	 * employeeImageRepository.save(employeeImage);
+	 * 
+	 * //employee.setFId_employee( xxxxxx );
+	 * 
+	 * //employeeRepository.save(employee);
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
+
 
 }

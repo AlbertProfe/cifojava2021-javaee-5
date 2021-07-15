@@ -20,6 +20,7 @@ public class Employee {
 	public String email;
 	public double monthSalary;
 	public String password;
+	public String fid_employeeImage;
 
 
 	public Employee() {

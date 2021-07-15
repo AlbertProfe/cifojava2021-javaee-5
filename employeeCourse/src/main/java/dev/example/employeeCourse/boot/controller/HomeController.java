@@ -30,6 +30,12 @@ public class HomeController {
 	public String home() {
 		return "home/home";
 	}
+	
+	/*
+	 * https://github.com/mafor/swagger-ui-port
+	 * @RequestMapping("/swagger") public String swaggerRedirect() { return
+	 * "redirect:/swagger-ui.html"; }
+	 */
 
 	@RequestMapping("/login")
 	public String login() {

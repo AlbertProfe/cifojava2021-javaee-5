@@ -62,6 +62,8 @@ public class EmployeeRestController {
 	public void insertEmployee(@RequestBody Employee employee) {
 
 		// System.out.println(book);
+		
+		
 		employeeRepository.save(employee);
 	}
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+
+<title>Welcome to our site</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+
+
+		<div class="w3-container w3-display-middle">
+			<h1>Welcome to our site</h1>
+			<p>Enjoy our site ...</p>
+		</div>
+
+		<div class="w3-panel w3-teal w3-center w3-display-container">
+			<h1 th:inline="text">Hello
+				[[${#httpServletRequest.remoteUser}]]!</h1>
+			<form th:action="@{/logout}" method="post">
+				<input class="w3-button" type="submit" value="Sign Out" />
+			</form>
+
+		</div>
+
+
+
+
+	</div>
+
+</body>
+</html>

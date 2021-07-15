@@ -23,7 +23,7 @@ public class Certificate {
 	private int id;
 	@Column
 	private String name;
-	private String family;
+	private String author;
 	private int hours;
 	private int level;
 	private boolean active;
@@ -33,10 +33,10 @@ public class Certificate {
 
 	public Certificate() {}
 
-	public Certificate(String name, String family, int hours, int level, boolean active) {
+	public Certificate(String name, String author, int hours, int level, boolean active) {
 		super();
 		this.name = name;
-		this.family = family;
+		this.author = author;
 		this.hours = hours;
 		this.level = level;
 		this.active = active;
@@ -68,12 +68,12 @@ public class Certificate {
 		this.name = name;
 	}
 
-	public String getFamily() {
-		return family;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setFamily(String family) {
-		this.family = family;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public int getHours() {
@@ -102,7 +102,7 @@ public class Certificate {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", family=" + family + ", hours=" + hours + ", level=" + level
+		return "Course [id=" + id + ", name=" + name + ", author=" + author + ", hours=" + hours + ", level=" + level
 				+ ", active=" + active + "]";
 	}
 

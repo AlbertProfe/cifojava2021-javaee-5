@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<title>Welcome to our site</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+	
+
+<div class="w3-card-4 w3-display-middle" style="width: 40%"
+	th:each="employee:${employeefromController}">
+	<header class="w3-container w3-light-grey">
+		<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
+
+	</header>
+	<div class="w3-container">
+		<p>Pending update Holidays and Expenses</p>
+		<p></p>
+		<hr>
+		<img src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461" alt="Avatar"
+			class="w3-left w3-circle w3-margin-right" style="width: 60px">
+		<p>CEO at Mighty Schools. Marketing and Advertising. Seeking a new
+			job and new opportunities.</p>
+		<br>
+		<p th:text="${employee.email}"></p>
+		<p th:text="${employee.age}"></p>
+		<p th:text="${employee.monthSalary}"></p>
+		<p th:text="${employee.password}"></p>
+		<hr>
+		<div class="w3-container w3-center">
+		
+			<a th:href="@{deleteEmployee(id=${employee.id})}"
+				class="w3-button w3-red w3-center">Delete</a>
+				
+			<a	th:href="@{updateEmployee(id=${employee.id})}"
+				class="w3-button w3-blue">Update</a>
+				
+			<a	th:href="@{addCourse(id=${employee.id})}"
+				class="w3-button w3-teal">Add Course</a>
+			
+			<hr>
+		</div>
+	</div>
+	<button class="w3-button w3-block w3-dark-grey">+ Follow</button>
+</div>
+
+</div>
+
+
+</body>
+</html>

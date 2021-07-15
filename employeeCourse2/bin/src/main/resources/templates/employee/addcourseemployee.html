@@ -16,23 +16,73 @@
 </head>
 
 <body>
-	<!-- Fragment-->
+
 	<div layout:fragment="content">
-		
-		<!-- Form -->
 		<form th:action="@{/employee/insertCourse}" th:object="${employee}"
 			method="post">
-			
 			<!-- Page Container -->
 			<div class="w3-container w3-content"
 				style="max-width: 1400px; margin-top: 80px">
-				
 				<!-- The Grid -->
 				<div class="w3-row">
-
-
 					<!-- Left Column -->
 					<div class="w3-col m4">
+						<!-- Employee -->
+						<div class="w3-card-4" th:object="${course}">
+							<header class="w3-container w3-light-grey">
+								<h3>Course</h3>
+
+							</header>
+							<div class="w3-container">
+								<p>Select course</p>
+								<p></p>
+								<hr>
+								<div class="w3-dropdown-hover w3-center">
+									<select class="w3-button w3-blue" id="selectCourse"
+										name="idCourse">
+
+										<option th:value="0">No course</option>
+										<option th:each="course : ${coursesfromController}"
+											th:value="${course.id}"
+											th:text="${course.id}+' : '+${course.fee}+'  '+${course.teacher}"></option>
+									</select>
+								</div>
+								<br><br>
+								<hr>
+								<div class="w3-container "
+									th:each="course:${coursesfromController}">
+									<ul class="w3-ul w3-card-4">
+										<li class="w3-bar">
+										 <span onclick="this.parentElement.style.display='none'" class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
+										 <img src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+											<div class="w3-bar-item">
+											 <span class="w3-large" th:text="${course.id}"></span><br>
+											  <span  th:text="${course.fee}"></span><br>
+											   <span th:text="${course.teacher}"></span><br>
+										</div>
+											
+											</li>
+
+									</ul>
+
+
+									
+								</div>
+								<br><br>
+							</div>
+							<button class="w3-button w3-block w3-dark-grey">+ Add
+								course</button>
+						</div>
+
+						<br>
+
+
+
+						<!-- End Left Column -->
+					</div>
+
+					<!-- Middle Column -->
+					<div class="w3-col m6">
 
 						<div class="w3-row-padding">
 							<div class="w3-col m12">
@@ -84,87 +134,43 @@
 
 
 
-
+						<!-- End Middle Column -->
 					</div>
 
-
-
-					<!-- End Left Column -->
-
 					<!-- Right Column -->
-
-					<div class="w3-col m8">
-						<!-- Employee -->
-						<div class="w3-card-4" th:object="${course}">
-							<header class="w3-container w3-light-grey">
-								<h3>Course</h3>
-
-							</header>
+					<div class="w3-col m2">
+						<div class="w3-card w3-round w3-white w3-center">
 							<div class="w3-container">
-								<p>Select course</p>
-								<p></p>
-								<hr>
-								<div class="w3-dropdown-hover w3-center">
-									<select class="w3-button w3-blue" id="selectCourse"
-										name="idCourse">
-
-										<option th:value="0">No course</option>
-										<option th:each="course : ${coursesfromController}"
-											th:value="${course.id}"
-											th:text="${course.fee}+'  '+${course.teacher}+' - Room: '+${course.room}"></option>
-									</select>
-								</div>
-								<br> <br>
-								<hr>
-								<div class="w3-container "
-									th:each="course:${coursesfromController}">
-									<ul class="w3-ul w3-card-4">
-										<li class="w3-bar"><span
-											onclick="this.parentElement.style.display='none'"
-											class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
-											<img
-											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
-											class="w3-bar-item w3-circle w3-hide-small"
-											style="width: 85px">
-											<div class="w3-bar-item">
-												<span class="w3-large" th:text="${course.id}"></span><br>
-												<span th:text="${course.fee}"></span><br> <span
-													th:text="${course.teacher}"></span><br>
-											</div></li>
-
-									</ul>
-
-
-
-								</div>
-								<br> <br>
+								<p>Upcoming Events:</p>
+								<i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
+								<p>
+									<strong>Holiday</strong>
+								</p>
+								<p>Friday 15:00</p>
+								<p>
+									<button class="w3-button w3-block w3-theme-l4">Info</button>
+								</p>
 							</div>
-							<button class="w3-button w3-block w3-dark-grey">+ Add
-								course</button>
 						</div>
-
 						<br>
 
 
 
-
+						<!-- End Right Column -->
 					</div>
-					<!-- End Right Column -->
 
-
-
+					<!-- End Grid -->
 				</div>
-				<!-- End Grid -->
 
+				<!-- End Page Container -->
 			</div>
-			<!-- End Page Container -->
+
 
 
 		</form>
-		<!-- End Form -->
-		
+
 	</div>
-	<!-- End Fragment-->
+
 
 </body>
 </html>

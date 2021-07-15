@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+
+<title>Welcome to our site</title>
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="w3-card-4 w3-display-middle" style="width: 40%">
+
+			<header class="w3-container w3-red">
+				<h3>error 404</h3>
+			</header>
+			<div class="w3-container w3-light-grey">
+
+				<p th:text="'Current time is ' + ${serverTime}"></p>
+				<p
+					th:text="'we create a variable named *kingsley_variable* of unknown (not-defined) type and assign the value: ' + ${kingsley_variable}"></p>
+
+				<p th:text="' ' + ${borja_test}"></p>
+				<p th:text="${smoker}"></p>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
