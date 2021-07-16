@@ -17,48 +17,110 @@
 
 <body>
 
-<div layout:fragment="content">
-	
+	<div layout:fragment="content">
 
-<div class="w3-card-4 w3-display-middle" style="width: 40%"
-	th:each="employee:${employeefromController}">
-	<header class="w3-container w3-light-grey">
-		<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
+		<div class="w3-container w3-content"
+			style="max-width: 1600px; margin-top: 50px">
 
-	</header>
-	<div class="w3-container">
-		<p>Pending update Holidays and Expenses</p>
-		<p></p>
-		<hr>
-		<img src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461" alt="Avatar"
-			class="w3-left w3-circle w3-margin-right" style="width: 60px">
-		<p>CEO at Mighty Schools. Marketing and Advertising. Seeking a new
-			job and new opportunities.</p>
-		<br>
-		<p th:text="${employee.email}"></p>
-		<p th:text="${employee.age}"></p>
-		<p th:text="${employee.monthSalary}"></p>
-		<p th:text="${employee.password}"></p>
-		<hr>
-		<div class="w3-container w3-center">
-		
-			<a th:href="@{deleteEmployee(id=${employee.id})}"
-				class="w3-button w3-red w3-center">Delete</a>
-				
-			<a	th:href="@{updateEmployee(id=${employee.id})}"
-				class="w3-button w3-blue">Update</a>
-				
-			<a	th:href="@{addCourse(id=${employee.id})}"
-				class="w3-button w3-teal">Add Course</a>
-			
-			<hr>
+			<!-- The Grid -->
+			<div class="w3-row">
+
+				<!-- Left Column Employee Detail-->
+				<div class="w3-col m4">
+					<div class="w3-row-padding">
+						<div class="w3-col m12">
+							<!-- Employee -->
+							<div class="w3-card-4"
+								th:each="employee:${employeefromController}">
+								<header class="w3-container w3-light-grey">
+									<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
+
+								</header>
+								<div class="w3-container">
+									<p>Pending update Holidays and Expenses</p>
+									<p></p>
+									<hr>
+									<img
+										src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+										alt="Avatar" class="w3-left w3-circle w3-margin-right"
+										style="width: 60px">
+									<p>CEO at Mighty Schools. Marketing and Advertising.
+										Seeking a new job and new opportunities.</p>
+									<br>
+									<p th:text="${employee.email}"></p>
+									<p th:text="${employee.age}"></p>
+									<p th:text="${employee.monthSalary}"></p>
+									<p th:text="${employee.password}"></p>
+									<hr>
+									<div class="w3-container w3-center">
+
+										<a th:href="@{deleteEmployee(id=${employee.id})}"
+											class="w3-button w3-red w3-center">Delete</a> <a
+											th:href="@{updateEmployee(id=${employee.id})}"
+											class="w3-button w3-blue">Update</a> <a
+											th:href="@{addCourse(id=${employee.id})}"
+											class="w3-button w3-teal">Add Course</a>
+
+										<hr>
+									</div>
+								</div>
+								<button class="w3-button w3-block w3-dark-grey">+
+									Follow</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- End Left Column -->
+
+
+				<!-- Right Column Course to Employee -->
+				<div class="w3-col m8">
+					<!-- Select Course to Employee by Id  -->
+					<div class="w3-card-4">
+						<header class="w3-container w3-light-grey">
+							<h3>Course</h3>
+
+						</header>
+						<div class="w3-container">
+							<div th:if="${enrollmentfromController.isEmpty()}">
+								<p>There is no course added to this employee</p>
+							</div>
+							<div th:if="${!enrollmentfromController.isEmpty()}">
+								<p>There are some enrollments and courses from this employee in our DB</p>
+							
+
+						<!-- 	<div class="w3-container"
+									th:each="course:${coursesfromController}">
+									<ul id="coursesUL" class="w3-ul w3-card-4">
+										<li class="w3-bar">
+										<span onclick="this.parentElement.style.display='none'"
+											class="w3-bar-item w3-button w3-small w3-right">×</span>
+											
+									<span onclick="addtolist(this)"
+											class="w3-bar-item w3-button w3-xlarge w3-left">+</span>
+										<img
+											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											class="w3-bar-item w3-circle w3-hide-small"
+											style="width: 85px">
+											<div class="w3-bar-item">
+												<span class="w3-large" th:text="${'id course: IFCT-'+ course.id}"></span><br>
+												<span
+													th:text="${course.teacher}+' - Room: '+${course.room}+ '   Fee: ' +${course.fee}+ ' €  '
+												+${#dates.format(course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${course.calendarCourse}"></span><br>
+												<span
+													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hours'"></span>
+												<br>
+											</div></li>
+									</ul>
+								</div><br> <br> -->
+						</div>
+						<button class="w3-button w3-block w3-dark-grey">+ Follow</button>
+					</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
-	<button class="w3-button w3-block w3-dark-grey">+ Follow</button>
-</div>
-
-</div>
-
-
 </body>
 </html>

@@ -9,11 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dev.example.employeeCourse.boot.model.Course;
 import dev.example.employeeCourse.boot.model.Employee;
 import dev.example.employeeCourse.boot.model.Enrollment;
 import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
+import dev.example.employeeCourse.boot.repository.EnrollmentRepository;
 
 
 @Controller
@@ -28,6 +33,9 @@ public class EmployeeController {
 	
 	@Autowired
 	CertificateRepository certificateRepository;
+	
+	@Autowired
+	EnrollmentRepository enrollmentRepository;
 
 	@RequestMapping("/allEmployees")
 	public String getAllEmployees(Model boxToView) {
@@ -142,6 +150,14 @@ public class EmployeeController {
 
 			model.addAttribute("employeefromController", employeeFound.get());
 			
+			 Optional<Iterable<Enrollment>> enrollmentFound =
+			  enrollmentRepository.findAllEnrollmentByEmployee(
+					  employeeRepository.findById(id).get());
+			  
+				  model.addAttribute("enrollmentfromController", enrollmentFound.get());
+				 
+			 
+			
 			return "employee/detailemployee";
 		}
 
@@ -167,6 +183,32 @@ public class EmployeeController {
 			else
 				return "home/notfound.html";
 		}
+		
+		
+		@RequestMapping(value = "/insertCourse", method = RequestMethod.POST)
+		public String insertCourseEmployee(int id,Employee employee, 
+				 @RequestParam("idCourse") int idCourse) {
+			
+			System.out.println(" (1) id course: " + idCourse + " id employee: " + id);
+
+			Optional<Employee> employeeFound = findOneEmployeeById(id);
+			Optional<Course> courseFound = findOneCourseById(idCourse);
+
+			if (employeeFound.isPresent() && courseFound.isPresent()) {
+				System.out.println(" (2) id course: " + idCourse + " id employee: " + id);
+				Enrollment enrollment = new Enrollment();
+				
+				enrollment.setCourse(courseFound.get());
+				enrollment.setEmployee(employeeFound.get());
+				
+				enrollmentRepository.save(enrollment);
+				
+				return "redirect:/employee/allEmployees";
+			}
+
+			else
+				return "home/notfound.html";
+		}
 	
 //--------------------------------------------------------------------------------
 //------------------------- service to controller --------------------------------
@@ -174,11 +216,18 @@ public class EmployeeController {
 
 	public Optional<Employee> findOneEmployeeById(int id) {
 
-		// System.out.println("inside findEmployee" + id);
+		
 		Optional<Employee> employeeFound = employeeRepository.findById(id);
-		// System.out.println("finishing findEmployee" + id);
-		// System.out.println("finishing findEmployee" + employeeFound.get());
+		
 		return employeeFound;
+	}
+	
+	public Optional<Course> findOneCourseById(int id) {
+
+		
+		Optional<Course> courseFound = courseRepository.findById(id);
+		
+		return courseFound;
 	}
 
 }

@@ -23,23 +23,23 @@ ul li:hover {
 }
 /* When clicked on, add a background color and strike out text */
 ul li.checked {
-  background: #888;
-  color: #fff;
-  text-decoration: line-through;
+	background: #888;
+	color: #fff;
+	text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
 ul li.checked::before {
-  content: '';
-  position: absolute;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  top: 10px;
-  left: 16px;
-  transform: rotate(45deg);
-  height: 15px;
-  width: 7px;
+	content: '';
+	position: absolute;
+	border-color: #fff;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	top: 10px;
+	left: 16px;
+	transform: rotate(45deg);
+	height: 15px;
+	width: 7px;
 }
 </style>
 </head>
@@ -48,30 +48,26 @@ ul li.checked::before {
 	<!-- Fragment-->
 	<div layout:fragment="content">
 
-		<!-- Form -->
-		<form th:action="@{/employee/insertCourse}" th:object="${employee}"
-			method="post">
+		<!-- <!-- Page Container -->
+		<div class="w3-container w3-content"
+			th:each="employee:${employeefromController}"
+			style="max-width: 1600px; margin-top: 50px">
 
-			<!-- Page Container -->
-			<div class="w3-container w3-content"
-				style="max-width: 1600px; margin-top: 50px">
+			<!-- Form -->
+			<form th:action="@{/employee/insertCourse(id=${employee.id})}"	method="post">
 
 				<!-- The Grid -->
 				<div class="w3-row">
 
-
-					<!-- Left Column -->
+					<!-- Left Column Employee Detail-->
 					<div class="w3-col m4">
-
 						<div class="w3-row-padding">
 							<div class="w3-col m12">
-
-
 								<!-- Course -->
-								<div class="w3-card-4"
-									th:each="employee:${employeefromController}">
+								<div class="w3-card-4">
 									<header class="w3-container w3-light-grey">
-										<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
+										<h3
+											th:text="${employee.id} + ' ' + ${employee.name} + ' ' + ${employee.surname}"></h3>
 
 									</header>
 									<div class="w3-container">
@@ -96,34 +92,22 @@ ul li.checked::before {
 												class="w3-button w3-red w3-center">Delete</a> <a
 												th:href="@{updateEmployee(id=${employee.id})}"
 												class="w3-button w3-blue">Update</a>
-
-
-
 											<hr>
 										</div>
 									</div>
-									<button class="w3-button w3-block w3-dark-grey">+ Add
-										course</button>
+
+									<button class="w3-button w3-block w3-dark-grey">+
+										Follow</button>
 								</div>
-
-
-
 							</div>
 						</div>
-
-
-
-
 					</div>
-
-
-
 					<!-- End Left Column -->
 
-					<!-- Right Column -->
 
+					<!-- Right Column Course to Employee -->
 					<div class="w3-col m8">
-						<!-- Employee -->
+						<!-- Select Course to Employee by Id  -->
 						<div class="w3-card-4" th:object="${course}">
 							<header class="w3-container w3-light-grey">
 								<h3>Course</h3>
@@ -132,7 +116,7 @@ ul li.checked::before {
 							<div class="w3-container">
 								<p>Select course</p>
 								<p></p>
-								<!-- <hr>
+								<hr>
 								<div class="w3-dropdown-hover w3-center">
 									<select class="w3-button w3-blue" id="selectCourse"
 										name="idCourse">
@@ -140,12 +124,17 @@ ul li.checked::before {
 										<option th:value="0">No course</option>
 										<option th:each="course : ${coursesfromController}"
 											th:value="${course.id}"
-											th:text="${course.fee}+'  '+${course.teacher}+' - Room: '+${course.room}"></option>
+											th:text="${course.certificate.name} +
+											'  '+${course.teacher}+
+											' - Room: '+ ${course.room} +
+											' - Fee:  '+ ${course.fee} + ' €'
+											"></option>
 									</select>
+
 								</div>
-								<br> <br> -->
+								<br> <br>
 								<hr>
-								<div class="w3-container "
+								<!-- <div class="w3-container"
 									th:each="course:${coursesfromController}">
 									<ul id="coursesUL" class="w3-ul w3-card-4">
 										<li class="w3-bar">
@@ -154,8 +143,6 @@ ul li.checked::before {
 											
 									<span onclick="addtolist(this)"
 											class="w3-bar-item w3-button w3-xlarge w3-left">+</span>
-											
-											
 										<img
 											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
 											class="w3-bar-item w3-circle w3-hide-small"
@@ -166,45 +153,39 @@ ul li.checked::before {
 													th:text="${course.teacher}+' - Room: '+${course.room}+ '   Fee: ' +${course.fee}+ ' €  '
 												+${#dates.format(course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${course.calendarCourse}"></span><br>
 												<span
-													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hous'"></span>
+													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hours'"></span>
 												<br>
 											</div></li>
-
 									</ul>
-
-
-
-								</div>
-								<br> <br>
+								</div><br> <br> -->
 							</div>
-							<button class="w3-button w3-block w3-dark-grey">+ Add
-								course</button>
+							<button type="submit"
+								class="w3-button w3-block w3-gray w3-center">+ Add</button>
+
 						</div>
-
 						<br>
-
 					</div>
 					<!-- End Right Column -->
 
 				</div>
 				<!-- End Grid -->
 
-			</div>
-			<!-- End Page Container -->
 
 
-		</form>
+			</form>
+		</div>
+		<!-- End Page Container -->
 		<!-- End Form -->
 		<br> <br> <br>
 		<script type="text/javascript">
 			function addtolist(x) {
-				
-			var list = document.querySelector('ul');
-			list.addEventListener('click', function(ev) {
-			  if (ev.target.tagName === 'LI') {
-			    ev.target.classList.toggle('checked');
-			  }
-			}, false);
+
+				var list = document.querySelector('ul');
+				list.addEventListener('click', function(ev) {
+					if (ev.target.tagName === 'LI') {
+						ev.target.classList.toggle('checked');
+					}
+				}, false);
 			}
 		</script>
 	</div>
