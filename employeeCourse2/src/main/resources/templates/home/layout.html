@@ -3,8 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+
+<head>
+<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
 <style>
 body {
 	margin: 0;
@@ -14,7 +19,6 @@ body {
 .topnav {
 	overflow: hidden;
 	background-color: #333;
-	
 }
 
 .topnav a {
@@ -25,7 +29,6 @@ body {
 	padding: 14px 16px;
 	text-decoration: none;
 	font-size: 17px;
-	
 }
 
 .topnav a:hover {
@@ -73,69 +76,56 @@ body {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	background-color: green;
+	background-color: gray;
 	color: white;
 	text-align: center;
 }
 </style>
-
-
-<head>
-
-<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
 </head>
 
 <body>
 
 	<!-- Main Navigation -->
-	
+	<div class="topnav" id="myTopnav">
+		<a class="active" th:href="@{/home/}">Spring Boot Project</a> <a
+			th:href="@{/employee/allEmployees}">All employees</a> <a
+			th:href="@{/employee/newEmployee}">Add new employee</a> <a
+			th:href="@{/expense/allExpenses}">All expenses</a> <a
+			th:href="@{/expense/newExpense}">Add new expense</a> <a
+			th:href="@{/home/}">Filter Courses</a> <a th:href="@{/home/}">Api
+			Rest</a> <a th:href="@{/fillin}">Fill in</a> <a
+			onclick="document.getElementById('id02').style.display='block'"
+			class="w3-bar-item w3-button w3-mobile w3-right">Session</a>
+			 <a
+			href="javascript:void(0);" class="icon" onclick="myFunction()"> 
+			<i
+			class="fa fa-bars"></i></a>
+	</div>
 
-		<div class="topnav" id="myTopnav">
-			<a class="active" th:href="@{/home/}">Spring Boot Project</a>
-			<a th:href="@{/employee/allEmployees}">All employees</a>
-			<a th:href="@{/employee/newEmployee}">Add new employee</a>
-			<a th:href="@{/fillin}">Fill in</a>
-			
-			<a th:href="@{/expense/allExpenses}">All expenses</a>
-			<a th:href="@{/expense/newExpense}">Add new expense</a>
-			
-			<a	onclick="document.getElementById('id02').style.display='block'"
-				class="w3-bar-item w3-button w3-mobile w3-right">Session</a> 
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-				<i class="fa fa-bars"></i></a>
-		</div>
-
-		<script>
-			function myFunction() {
-				var x = document.getElementById("myTopnav");
-				if (x.className === "topnav") {
-					x.className += " responsive";
-				} else {
-					x.className = "topnav";
-				}
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
 			}
-		</script>
+		}
+	</script>
 
 
-
-
-
-	
-
-		<!-- Cart info -->
-		<div id="id02" class="w3-modal">
-			<div class="w3-modal-content">
-				<div class="w3-container">
-					<span
-						onclick="document.getElementById('id02').style.display='none'"
-						class="w3-button w3-display-topright">&times;</span>
-					<p>Your id session is: 15611354BGET5GG</p>
-					<p>Your name is: Alan Smith</p>
-					<p>Status: CREATED</p>
-				</div>
+	<!-- Session info -->
+	<div id="id02" class="w3-modal">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+				<span onclick="document.getElementById('id02').style.display='none'"
+					class="w3-button w3-display-topright">&times;</span>
+				<p>Your id session is: 15611354BGET5GG</p>
+				<p>Your name is: Alan Smith</p>
+				<p>Status: CREATED</p>
 			</div>
 		</div>
-	
+	</div>
 
 
 
@@ -143,6 +133,13 @@ body {
 	<section layout:fragment="content">
 		<p>This is filled by the content template.</p>
 	</section>
+	
+	<!-- Optional Section -->
+	<th:block layout:fragment="optional" />
+	
+	<br>
+	<br>
+	<br>
 
 	<!-- Footer -->
 	<footer>
@@ -151,9 +148,7 @@ body {
 		</div>
 	</footer>
 
-	<!-- Optional Section -->
-	<th:block layout:fragment="optional" />
-
+	
 </body>
 
 

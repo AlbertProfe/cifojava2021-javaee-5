@@ -21,6 +21,7 @@ public class Enrollment {
 	private Date enrollmentDate;
 	private int testMark;
 	private boolean approved;
+	private String status;
 	
 	@ManyToOne
 	@JoinColumn(name = "EMPLOYEE_FID")
@@ -59,6 +60,19 @@ public class Enrollment {
 		this.testMark = testMark;
 		this.approved = approved;
 		this.employee = employee;
+	}
+	
+	
+
+	public Enrollment(Date enrollmentDate, int testMark, boolean approved, String status, Employee employee,
+			Course course) {
+		super();
+		this.enrollmentDate = enrollmentDate;
+		this.testMark = testMark;
+		this.approved = approved;
+		this.status = status;
+		this.employee = employee;
+		this.course = course;
 	}
 
 	public int getId() {
@@ -103,11 +117,22 @@ public class Enrollment {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
 		return "Enrollment [id=" + id + ", enrollmentDate=" + enrollmentDate + ", testMark=" + testMark + ", approved="
-				+ approved + ", employee=" + employee +  "]";
+				+ approved + ", status=" + status + ", employee=" + employee + ", course=" + course + "]";
 	}
+
+	
 	
 }

@@ -16,10 +16,12 @@ import com.github.javafaker.Faker;
 import dev.example.employeeCourse.boot.model.Certificate;
 import dev.example.employeeCourse.boot.model.Course;
 import dev.example.employeeCourse.boot.model.Employee;
+import dev.example.employeeCourse.boot.model.Enrollment;
 import dev.example.employeeCourse.boot.model.Expense;
 import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
+import dev.example.employeeCourse.boot.repository.EnrollmentRepository;
 import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 
 @Controller
@@ -33,6 +35,9 @@ public class HomeController {
 	private CertificateRepository certificateRepository;
 	@Autowired
 	private CourseRepository courseRepository;
+	@Autowired
+	private EnrollmentRepository enrollmentRepository;
+	
 
 	// ------------------------------home ---------------------------
 	@RequestMapping({ "/home", "/" })
@@ -101,18 +106,33 @@ public class HomeController {
 					faker.number().numberBetween(100, 800), faker.number().numberBetween(1, 8) , true
 					));
 			
+			
 			courseRepository.save(new Course( "room_" + faker.number().numberBetween(45,108) + "B", false, 
 					faker.date().birthday(0, 3) ,faker.date().birthday(0, 3) , 
 					"mornings", faker.number().randomDouble(2, 1550, 20000), faker.name().firstName() +" " +  faker.name().lastName()
 					));
 			
-			
-			
-			
 			count++;
 			
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
 			
+		}
+		
+		count=1;
+		while (count < qtyToCreate) {
+			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true, "FINISHED",
+					employeeRepository.findById(count).get(), courseRepository.findById(count).get() 
+							));
+			
+			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true,"IN-PROGRESS",
+					employeeRepository.findById(count).get(), 
+					courseRepository.findById(count+1).isPresent() ? courseRepository.findById(count+1).get() : null
+							));
+			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true,"TO-START",
+					employeeRepository.findById(count).get(), 
+					courseRepository.findById(count+2).isPresent() ? courseRepository.findById(count+2).get() : null
+							));
+			count++;
 			
 		}
 		

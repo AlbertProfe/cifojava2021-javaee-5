@@ -8,19 +8,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<head>
-<title>Welcome to our site</title>
+
 </head>
 
 <body>
 
 	<div layout:fragment="content">
+		<script>
+			function openItem(itememployeeName) {
+				var i;
+				var x = document.getElementsByClassName("itememployee");
+				for (i = 0; i < x.length; i++) {
+					x[i].style.display = "none";
+				}
+				document.getElementById(itememployeeName).style.display = "block";
+			}
+		</script>
 
 		<div class="w3-container w3-content"
-			style="max-width: 1600px; margin-top: 50px">
+			style="max-width: 1600px; margin-top: 50px"
+			th:each="employee:${employeefromController}">
 
 			<!-- The Grid -->
 			<div class="w3-row">
@@ -30,8 +39,7 @@
 					<div class="w3-row-padding">
 						<div class="w3-col m12">
 							<!-- Employee -->
-							<div class="w3-card-4"
-								th:each="employee:${employeefromController}">
+							<div class="w3-card-4">
 								<header class="w3-container w3-light-grey">
 									<h3 th:text="${employee.name} + ' ' + ${employee.surname}"></h3>
 
@@ -57,9 +65,7 @@
 										<a th:href="@{deleteEmployee(id=${employee.id})}"
 											class="w3-button w3-red w3-center">Delete</a> <a
 											th:href="@{updateEmployee(id=${employee.id})}"
-											class="w3-button w3-blue">Update</a> <a
-											th:href="@{addCourse(id=${employee.id})}"
-											class="w3-button w3-teal">Add Course</a>
+											class="w3-button w3-blue">Update</a>
 
 										<hr>
 									</div>
@@ -79,48 +85,85 @@
 					<!-- Select Course to Employee by Id  -->
 					<div class="w3-card-4">
 						<header class="w3-container w3-light-grey">
-							<h3>Course</h3>
+							<h3>Employee Items</h3>
 
 						</header>
-						<div class="w3-container">
+
+						<div class="w3-bar w3-blue-gray">
+							<button class="w3-bar-item w3-large w3-button"
+								onclick="openItem('Courses')">Courses</button>
+							<button class="w3-bar-item w3-large w3-button"
+								onclick="openItem('Expenses')">Expenses</button>
+							<button class="w3-bar-item w3-large w3-button"
+								onclick="openItem('Holidays')">Holidays</button>
+						</div>
+
+
+						<div id="Courses" class="w3-container itememployee">
 							<div th:if="${enrollmentfromController.isEmpty()}">
 								<p>There is no course added to this employee</p>
 							</div>
 							<div th:if="${!enrollmentfromController.isEmpty()}">
-								<p>There are some enrollments and courses from this employee in our DB</p>
-							
+								<p>There are some enrollments and courses (certificates)
+									from this employee in our DB</p>
 
-						<!-- 	<div class="w3-container"
-									th:each="course:${coursesfromController}">
+								<div class="w3-container"
+									th:each="enroll:${enrollmentfromController}">
 									<ul id="coursesUL" class="w3-ul w3-card-4">
-										<li class="w3-bar">
-										<span onclick="this.parentElement.style.display='none'"
-											class="w3-bar-item w3-button w3-small w3-right">×</span>
-											
-									<span onclick="addtolist(this)"
-											class="w3-bar-item w3-button w3-xlarge w3-left">+</span>
-										<img
+										<li class="w3-bar"><span
+											onclick="this.parentElement.style.display='none'"
+											class="w3-bar-item w3-button w3-small w3-right">×</span> <img
 											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
 											class="w3-bar-item w3-circle w3-hide-small"
-											style="width: 85px">
+											style="width: 105px">
 											<div class="w3-bar-item">
-												<span class="w3-large" th:text="${'id course: IFCT-'+ course.id}"></span><br>
+												<span class="w3-large"
+													th:text="${'id enrollment: ENRO-C-'+ enroll.id}"></span><br>
+												<span th:text="${'status: '}"></span> <span
+													style="color: red" th:text="${enroll.status}"></span> <span
+													th:text="${' Approved: '+ enroll.approved + '  - Enrollment date: '+ enroll.enrollmentDate}"></span>
+												<br> <span style="font-weight: bold"
+													th:text="${'id course: '+ enroll.course.id}"></span><br>
+
 												<span
-													th:text="${course.teacher}+' - Room: '+${course.room}+ '   Fee: ' +${course.fee}+ ' €  '
-												+${#dates.format(course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${course.calendarCourse}"></span><br>
+													th:text="${enroll.course.teacher}+' - Room: '+${enroll.course.room}+ '   Fee: ' +${enroll.course.fee}+ ' €  '
+												+${#dates.format(enroll.course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(enroll.course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${enroll.course.calendarCourse}"></span><br>
+												<span style="font-weight: bold"
+													th:text="${'id certificate: IFCT-'+ enroll.course.certificate.id}"></span><br>
 												<span
-													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hours'"></span>
-												<br>
+													th:text="${enroll.course.certificate.name} +'  (author reference: ' +${enroll.course.certificate.author} +')  ' +${enroll.course.certificate.hours} + ' hours'"></span>
+												<br> <a th:href="@{addCourse(id=${employee.id})}"
+													class="w3-button w3-small w3-blue w3-right">Update
+													Status Course</a>
+
 											</div></li>
 									</ul>
-								</div><br> <br> -->
+								</div>
+								<br> <br>
+								<hr>
+							</div>
+							<div class="w3-center">
+								<a th:href="@{addCourse(id=${employee.id})}"
+									class="w3-button w3-small w3-indigo">+ Add Course</a>
+								<hr>
+							</div>
 						</div>
-						<button class="w3-button w3-block w3-dark-grey">+ Follow</button>
-					</div>
 
+						<div id="Expenses" class="w3-container itememployee"
+							style="display: none">
+							<p>There is no expenses added to this employee</p>
+						</div>
+						<div id="Holidays" class="w3-container itememployee"
+							style="display: none">
+							<p>There is no holidays added to this employee</p>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
+	
 </body>
 </html>

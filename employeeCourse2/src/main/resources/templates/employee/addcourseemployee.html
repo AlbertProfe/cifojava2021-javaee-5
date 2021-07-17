@@ -134,30 +134,7 @@ ul li.checked::before {
 								</div>
 								<br> <br>
 								<hr>
-								<!-- <div class="w3-container"
-									th:each="course:${coursesfromController}">
-									<ul id="coursesUL" class="w3-ul w3-card-4">
-										<li class="w3-bar">
-										<span onclick="this.parentElement.style.display='none'"
-											class="w3-bar-item w3-button w3-small w3-right">×</span>
-											
-									<span onclick="addtolist(this)"
-											class="w3-bar-item w3-button w3-xlarge w3-left">+</span>
-										<img
-											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
-											class="w3-bar-item w3-circle w3-hide-small"
-											style="width: 85px">
-											<div class="w3-bar-item">
-												<span class="w3-large" th:text="${'id course: IFCT-'+ course.id}"></span><br>
-												<span
-													th:text="${course.teacher}+' - Room: '+${course.room}+ '   Fee: ' +${course.fee}+ ' €  '
-												+${#dates.format(course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(course.finishDate, 'dd-MM-yyyy')}+ ' ' + ${course.calendarCourse}"></span><br>
-												<span
-													th:text="${course.certificate.name} +'  (author reference: ' +${course.certificate.author} +')  ' +${course.certificate.hours} + ' hours'"></span>
-												<br>
-											</div></li>
-									</ul>
-								</div><br> <br> -->
+								
 							</div>
 							<button type="submit"
 								class="w3-button w3-block w3-gray w3-center">+ Add</button>

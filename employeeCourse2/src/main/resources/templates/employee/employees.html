@@ -52,7 +52,7 @@
 				<td>email</td>
 				<td>salary</td>
 				<td>password</td>
-				<td>actions</td>
+				<td class="w3-center">actions</td>
 			</tr>
 			<tr th:each="employee:${employeeListfromControllerAndDB}">
 
@@ -64,12 +64,19 @@
 				<td th:text="${employee.monthSalary}"></td>
 				<td th:text="${employee.password}"></td>
 
-				<td><a th:href="@{deleteEmployee(id=${employee.id})}"
-					class="w3-button w3-small w3-red">Delete</a> <a
+				<td class="w3-center"><a
 					th:href="@{detailEmployee(id=${employee.id})}"
 					class="w3-button w3-small w3-teal">Detail</a> <a
 					th:href="@{updateEmployee(id=${employee.id})}"
-					class="w3-button w3-small w3-blue">Update</a></td>
+					class="w3-button w3-small w3-blue">Update</a> <a
+					th:href="@{addCourse(id=${employee.id})}"
+					class="w3-button w3-small w3-indigo">+ Course</a> <a
+					th:href="@{addCourse(id=${employee.id})}"
+					class="w3-button  w3-small w3-purple">+ Expense</a> <a
+					th:href="@{addCourse(id=${employee.id})}"
+					class="w3-button w3-small w3-blue-gray">+ Holidays</a> <a
+					th:href="@{deleteEmployee(id=${employee.id})}"
+					class="w3-button w3-small w3-red">Delete</a></td>
 
 
 			</tr>
