@@ -37,7 +37,6 @@ public class HomeController {
 	private CourseRepository courseRepository;
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
-	
 
 	// ------------------------------home ---------------------------
 	@RequestMapping({ "/home", "/" })
@@ -78,7 +77,8 @@ public class HomeController {
 		int count = 0;
 		int intRandom;
 		int intRandom2;
-		
+		int countExpenseid = 1;
+
 		while (count < qtyToCreate) {
 
 			stringRandom1 = alphabetChars.charAt(createIntRandom(alphabetChars.length()));
@@ -95,47 +95,50 @@ public class HomeController {
 			employeeRepository.save(new Employee(faker.name().firstName(), faker.name().lastName(),
 					faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
 					faker.number().randomDouble(2, 5, 2000),
-					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3
-					));
+					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3));
 
-			expenseRepository.save(new Expense(faker.beer().name(), faker.date().birthday(0, 3),
-					faker.number().randomDouble(2, 50, 2000)
-					));
-			
-			certificateRepository.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(), 
-					faker.number().numberBetween(100, 800), faker.number().numberBetween(1, 8) , true
-					));
-			
-			
-			courseRepository.save(new Course( "room_" + faker.number().numberBetween(45,108) + "B", false, 
-					faker.date().birthday(0, 3) ,faker.date().birthday(0, 3) , 
-					"mornings", faker.number().randomDouble(2, 1550, 20000), faker.name().firstName() +" " +  faker.name().lastName()
-					));
-			
+			certificateRepository
+					.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(),
+							faker.number().numberBetween(100, 800), faker.number().numberBetween(1, 8), true));
+
+			courseRepository.save(new Course("room_" + faker.number().numberBetween(45, 108) + "B", false,
+					faker.date().birthday(0, 3), faker.date().birthday(0, 3), "mornings",
+					faker.number().randomDouble(2, 1550, 20000),
+					faker.name().firstName() + " " + faker.name().lastName()));
+
 			count++;
-			
+
+			int countExpense = 0;
+			while (countExpense < 10) {
+				expenseRepository.save(new Expense(faker.beer().name(), faker.date().birthday(0, 3),
+						faker.number().randomDouble(2, 50, 2000)));
+				expenseRepository.findById(countExpenseid).get().setEmployee(employeeRepository.findById(count).get());
+				countExpense++;
+				countExpenseid++;
+			}
+
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
-			
+
 		}
-		
-		count=1;
+
+		count = 1;
 		while (count < qtyToCreate) {
-			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true, "FINISHED",
-					employeeRepository.findById(count).get(), courseRepository.findById(count).get() 
-							));
-			
-			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true,"IN-PROGRESS",
-					employeeRepository.findById(count).get(), 
-					courseRepository.findById(count+1).isPresent() ? courseRepository.findById(count+1).get() : null
-							));
-			enrollmentRepository.save(new Enrollment(  faker.date().birthday(0, 3), faker.number().numberBetween(7,10), true,"TO-START",
-					employeeRepository.findById(count).get(), 
-					courseRepository.findById(count+2).isPresent() ? courseRepository.findById(count+2).get() : null
-							));
+			enrollmentRepository.save(
+					new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10), true, "FINISHED",
+							employeeRepository.findById(count).get(), courseRepository.findById(count).get()));
+
+			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
+					true, "IN-PROGRESS", employeeRepository.findById(count).get(),
+					courseRepository.findById(count + 1).isPresent() ? courseRepository.findById(count + 1).get()
+							: null));
+			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
+					true, "TO-START", employeeRepository.findById(count).get(),
+					courseRepository.findById(count + 2).isPresent() ? courseRepository.findById(count + 2).get()
+							: null));
 			count++;
-			
+
 		}
-		
+
 		courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";

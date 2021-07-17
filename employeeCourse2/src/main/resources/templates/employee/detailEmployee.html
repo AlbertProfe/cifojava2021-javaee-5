@@ -16,6 +16,7 @@
 <body>
 
 	<div layout:fragment="content">
+		<!-- Script for tabs -->
 		<script>
 			function openItem(itememployeeName) {
 				var i;
@@ -26,7 +27,7 @@
 				document.getElementById(itememployeeName).style.display = "block";
 			}
 		</script>
-
+		<!-- Main div -->
 		<div class="w3-container w3-content"
 			style="max-width: 1600px; margin-top: 50px"
 			th:each="employee:${employeefromController}">
@@ -82,13 +83,13 @@
 
 				<!-- Right Column Course to Employee -->
 				<div class="w3-col m8">
-					<!-- Select Course to Employee by Id  -->
+					<!-- Employee Items  -->
 					<div class="w3-card-4">
 						<header class="w3-container w3-light-grey">
 							<h3>Employee Items</h3>
-
 						</header>
-
+						
+						<!-- Button tabs  -->
 						<div class="w3-bar w3-blue-gray">
 							<button class="w3-bar-item w3-large w3-button"
 								onclick="openItem('Courses')">Courses</button>
@@ -98,7 +99,7 @@
 								onclick="openItem('Holidays')">Holidays</button>
 						</div>
 
-
+						<!-- Courses -->
 						<div id="Courses" class="w3-container itememployee">
 							<div th:if="${enrollmentfromController.isEmpty()}">
 								<p>There is no course added to this employee</p>
@@ -132,8 +133,8 @@
 													th:text="${'id certificate: IFCT-'+ enroll.course.certificate.id}"></span><br>
 												<span
 													th:text="${enroll.course.certificate.name} +'  (author reference: ' +${enroll.course.certificate.author} +')  ' +${enroll.course.certificate.hours} + ' hours'"></span>
-												<br> <a th:href="@{addCourse(id=${employee.id})}"
-													class="w3-button w3-small w3-blue w3-right">Update
+												<br><br> <a th:href="@{addCourse(id=${employee.id})}"
+													class="w3-button w3-small w3-blue w3-left">Update
 													Status Course</a>
 
 											</div></li>
@@ -148,11 +149,14 @@
 								<hr>
 							</div>
 						</div>
-
+						
+						<!-- Expenses -->
 						<div id="Expenses" class="w3-container itememployee"
 							style="display: none">
 							<p>There is no expenses added to this employee</p>
 						</div>
+						
+						<!-- Holidays -->
 						<div id="Holidays" class="w3-container itememployee"
 							style="display: none">
 							<p>There is no holidays added to this employee</p>

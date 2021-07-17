@@ -9,8 +9,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import dev.example.employeeCourse.boot.model.Employee;
 import dev.example.employeeCourse.boot.model.Expense;
+import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 
 	@Controller
@@ -19,6 +23,9 @@ import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 		
 		@Autowired
 		ExpenseRepository expenseRepository;
+		
+		@Autowired
+		EmployeeRepository employeeRepository;
 
 		//----------------------- read ---------------------------------
 		@RequestMapping("/allExpenses")
@@ -31,13 +38,20 @@ import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 		
 		//-----------------------add----------------------------------
 		@RequestMapping("/newExpense")
-		public String newExpense () {
-
+		public String newExpense (Model model) {
+			
+			model.addAttribute("employees", employeeRepository.findAll());
+			
 			return "expense/newexpense.html";
 		}
 
-		@RequestMapping("/addExpense")
-		public String inserExpense ( @Validated Expense expense, Model boxToView) {
+		@RequestMapping(value = "/addExpense", method = RequestMethod.POST)
+		public String inserExpense ( @Validated Expense expense, Model boxToView,  @RequestParam("idEmployee") int id) {
+			
+			Optional<Employee> foundEmployee = employeeRepository.findById(id);
+			
+			if (foundEmployee.isPresent()) expense.setEmployee(foundEmployee.get());
+			else expense.setEmployee(null);
 			
 			//System.out.println(expense);
 			expenseRepository.save(expense);

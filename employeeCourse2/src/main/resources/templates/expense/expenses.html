@@ -75,7 +75,9 @@
 				<td>name</td>
 				<td>date</td>
 				<td>value</td>
-				<td>operations</td>
+				<td class="w3-center">operations</td>
+				<td>employee</td>
+				<td class="w3-center">to employee</td>
 			</tr>
 			<tr th:each="expense:${expensesfromController}">
 				<td th:text="${expense.id}"></td>
@@ -83,10 +85,13 @@
 				<td th:text="${#dates.format(expense.date,'dd-MMM-yyyy')}"></td>
 				<td th:text="${expense.value}"></td>
 
-				<td><a th:href="@{deleteExpense(id=${expense.id})}"
+				<td class="w3-center"><a th:href="@{deleteExpense(id=${expense.id})}"
 					class="w3-button w3-small w3-red">Delete</a> <a
 					th:href="@{updateExpense(id=${expense.id})}"
 					class="w3-button w3-small w3-blue">Update</a></td>
+				<td th:text="${expense.employee.name +'  ' + expense.employee.surname +'  (' + expense.employee.email+')'}"></td>
+				<td class="w3-center"><a th:href="@{/employee/detailEmployee(id=${expense.employee.id})}"
+					class="w3-button w3-small w3-teal">Detail Emplolyee</a></td>
 			</tr>
 		</table>
 		<script>

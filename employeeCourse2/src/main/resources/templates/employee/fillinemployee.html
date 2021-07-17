@@ -20,38 +20,45 @@
 	<div layout:fragment="content">
 
 
+		<div class="w3-container w3-card-4 w3-display-middle w3-center"
+			style="width: 50%;">
+			<hr>
+			<p style="font-weight: bold">How many employees** do you want to
+				create?</p>
+			<hr>
 
+			<a th:href="@{/fillinemployee(qtyToCreate=10)}"
+				class="w3-button w3-teal">Create 10 entities and registers in BD</a>
+			<p></p>
+			<a th:href="@{/fillinemployee(qtyToCreate=100)}"
+				class="w3-button w3-teal">Create 100 entities and registers in
+				BD</a>
+			<p></p>
+			<a th:href="@{/fillinemployee(qtyToCreate=1000)}"
+				class="w3-button w3-teal">Create 1000 entities and registers in
+				BD</a>
+			<p></p>
+			<a th:href="@{/fillinemployee(qtyToCreate=5000)}"
+				class="w3-button w3-teal">Create 5000 entities and registers in
+				BD</a>
+			<p></p>
+			<a th:href="@{/fillinemployee(qtyToCreate=10000)}"
+				class="w3-button w3-teal">Create 10000 entities and registers in
+				BD</a>
 
+			<p>Delete all entities and registers in BD</p>
 
-
-
-<div class="w3-container w3-card-4 w3-display-middle w3-center"
-	style="width: 50%;">
-
-	<p>How many employees/expenses/holidays/courses and certificates do you want to create (and the enrollments employee-courses (@manytomany)?</p>
-
-	<a th:href="@{/fillinemployee(qtyToCreate=10)}"
-		class="w3-button w3-teal">Create 10 entities and registers in BD</a>
-	<p></p>
-	<a th:href="@{/fillinemployee(qtyToCreate=100)}"
-		class="w3-button w3-teal">Create 100 entities and registers in BD</a>
-	<p></p>
-	<a th:href="@{/fillinemployee(qtyToCreate=1000)}"
-		class="w3-button w3-teal">Create 1000 entities and registers in BD</a>
-	<p></p>
-	<a th:href="@{/fillinemployee(qtyToCreate=5000)}"
-		class="w3-button w3-teal">Create 5000 entities and registers in BD</a>
-	<p></p>
-	<a th:href="@{/fillinemployee(qtyToCreate=10000)}"
-		class="w3-button w3-teal">Create 10000 entities and registers in BD</a>
-
-	<p>Delete all entities and registers in BD</p>
-
-	<a th:href="@{/employee/deleteAllEmployees}" class="w3-button w3-red">Delete
-		all entities and registers in BD</a>
-	<p></p>
-	<p></p>
-
-</div>
-</div></body>
+			<a th:href="@{/employee/deleteAllEmployees}" class="w3-button w3-red">Delete
+				all entities and registers in BD</a>
+			<p></p>
+			<p></p>
+			<hr>
+			<span>* employees/expenses/holidays/courses and certificates</span><br>
+			<span>** with the enrollments employee-courses and
+				employee-expenses (1 to 10)</span><br> <span>*** @onetomany and
+				@manytomany relationships</span>
+			<hr>
+		</div>
+	</div>
+</body>
 </html>
