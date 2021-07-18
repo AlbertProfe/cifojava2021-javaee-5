@@ -48,31 +48,6 @@ ul li.checked::before {
 	<!-- Fragment-->
 	<div layout:fragment="content">
 		<!-- Script for upload image -->
-		<script>
-
-		
-		function imageUpload(uploadImage){
-			
-	    	    alert('The upload operation is aobut to start!');
-	    	 
-	    	    var formdata = new FormData();
-	    	    formdata.append("file", fileInput.files[0], "uploadImage");
-	    	    formdata.append("name", "1");
-
-	    	    var requestOptions = {
-	    	      method: 'POST',
-	    	      body: formdata,
-	    	      redirect: 'follow'
-	    	    };
-
-	    	    fetch("http://localhost:8086/employeeImage", requestOptions)
-	    	      .then(response => response.text())
-	    	      .then(result => console.log(result))
-	    	      .catch(error => console.log('error', error));
-				
-				alert('The file is been uploading ....');
-	    }	
-		</script>
 
 		<!-- <!-- Page Container -->
 		<div class="w3-container w3-content"
@@ -80,7 +55,8 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form  id="uploadimageform">
+			<form action="insertEmployeeImage" id="uploadimageform" method="POST"
+				enctype="multipart/form-data">
 
 				<!-- The Grid -->
 				<div class="w3-row">
@@ -122,8 +98,7 @@ ul li.checked::before {
 										</div>
 									</div>
 
-									<button class="w3-button w3-block w3-dark-grey">+
-										Follow</button>
+										<a class="w3-button w3-block w3-dark-grey" th:href="@{detailEmployee(id=${employee.id})}"> Detail Employee</a>
 								</div>
 							</div>
 						</div>
@@ -134,7 +109,7 @@ ul li.checked::before {
 					<!-- Right Column Course to Employee -->
 					<div class="w3-col m8">
 						<!-- Select Course to Employee by Id  -->
-						<div class="w3-card-4" th:object="${course}">
+						<div class="w3-card-4">
 							<header class="w3-container w3-light-grey">
 								<h3>+ Add Image</h3>
 
@@ -144,25 +119,38 @@ ul li.checked::before {
 								<p></p>
 								<hr>
 
-								<div class="w3-container w3-center">
-
+								<div class="w3-container">
+									<p>
+										<label class="w3-text-gray"><b>employee id</b></label> <input
+										class="w3-input w3-border w3-light-grey" 
+											type="number" name="employeeId" th:value="${employee.id}"
+											readonly>
+									</p>
+									<p>
+										<label class="w3-text-gray"><b>Name</b></label> <input
+											class="w3-input w3-border w3-light-grey" name="name"
+											placeholder="jhon" type="text" required>
+									</p>
 
 									<p>
-										<input value="Select image" class="w3-button w3-light-grey"
-											type="file" id="uploadImage" name="filename">
+										<input class="w3-button w3-light-grey" type="file"
+											id="uploadImage" name="file">
 									</p>
-									<button  onclick="imageUpload(uploadImage)"
-												class="w3-button w3-blue-grey">Upload Image</button>
 
 
+									<button type="submit" class="w3-button w3-blue-grey">Upload
+										Image</button>
 
 									<hr>
-								</div>
+									<div th:if="${message}">
+										<p th:text="${message}"></p>
+									</div>
 
+								</div>
 							</div>
 						</div>
+						<!-- End Right Column -->
 					</div>
-					<!-- End Right Column -->
 				</div>
 				<!-- End Grid -->
 			</form>

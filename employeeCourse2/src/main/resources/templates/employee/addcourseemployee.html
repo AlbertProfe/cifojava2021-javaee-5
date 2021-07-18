@@ -96,8 +96,7 @@ ul li.checked::before {
 										</div>
 									</div>
 
-									<button class="w3-button w3-block w3-dark-grey">+
-										Follow</button>
+									<a class="w3-button w3-block w3-dark-grey" th:href="@{detailEmployee(id=${employee.id})}"> Detail Employee</a>
 								</div>
 							</div>
 						</div>
@@ -135,8 +134,12 @@ ul li.checked::before {
 											</option>
 									</select>
 								</div>
-								<br> <br>
+								<br> 
 								<hr>
+							
+									<div th:if="${message}">
+										<p th:text="${message}"></p>
+									</div>	
 								
 							</div>
 							<button type="submit"

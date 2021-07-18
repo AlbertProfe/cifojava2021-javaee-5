@@ -2,7 +2,10 @@ package dev.example.employeeCourse.boot.controller;
 
 
 
+import java.io.IOException;
 import java.util.Optional;
+
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dev.example.employeeCourse.boot.model.Course;
 import dev.example.employeeCourse.boot.model.Employee;
+import dev.example.employeeCourse.boot.model.EmployeeImage;
 import dev.example.employeeCourse.boot.model.Enrollment;
 import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
+import dev.example.employeeCourse.boot.repository.EmployeeImageRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 import dev.example.employeeCourse.boot.repository.EnrollmentRepository;
 
@@ -36,6 +43,9 @@ public class EmployeeController {
 	
 	@Autowired
 	EnrollmentRepository enrollmentRepository;
+	
+	@Autowired
+	EmployeeImageRepository employeeImageRepository;
 
 	@RequestMapping("/allEmployees")
 	public String getAllEmployees(Model boxToView) {
@@ -187,7 +197,7 @@ public class EmployeeController {
 		
 		@RequestMapping(value = "/insertCourse", method = RequestMethod.POST)
 		public String insertCourseEmployee(int id,Employee employee, 
-				 @RequestParam("idCourse") int idCourse) {
+				 @RequestParam("idCourse") int idCourse,  RedirectAttributes redirectAttributes) {
 			
 			System.out.println(" (1) id course: " + idCourse + " id employee: " + id);
 
@@ -203,7 +213,11 @@ public class EmployeeController {
 				
 				enrollmentRepository.save(enrollment);
 				
-				return "redirect:/employee/allEmployees";
+				redirectAttributes.addFlashAttribute("message",
+						"You successfully enrolled " + employeeFound.get().getName() +" "+  employeeFound.get().getSurname() + " in "+
+								courseFound.get().getCertificate().getName() + "!");
+				
+				return "redirect:/employee/addCourse?id=" + id;
 			}
 
 			else
@@ -220,7 +234,6 @@ public class EmployeeController {
 
 				model.addAttribute("employeefromController", employeeFound.get());
 				
-				
 				return "employee/addimage";
 			}
 
@@ -228,6 +241,24 @@ public class EmployeeController {
 				return "home/notfound.html";
 		}
 		
+		@PostMapping("/insertEmployeeImage")
+		public String insertEmployeeImage(@RequestParam String name, @RequestParam int employeeId,  @RequestParam MultipartFile file, RedirectAttributes redirectAttributes)
+				throws IOException {
+			
+			System.out.println("Image name: " + name);
+
+			EmployeeImage employeeImage = new EmployeeImage();
+			employeeImage.setName(name);
+			employeeImage.setEmployeeId(employeeId);
+			employeeImage.setImage(new Binary(file.getBytes()));
+			
+			employeeImageRepository.save(employeeImage);
+
+			redirectAttributes.addFlashAttribute("message",
+					"You successfully uploaded " + file.getOriginalFilename() + "!");
+
+			return "redirect:/employee/addImageEmployee?id=" + employeeId;
+		}
 		
 	
 //--------------------------------------------------------------------------------

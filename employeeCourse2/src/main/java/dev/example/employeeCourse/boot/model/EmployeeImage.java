@@ -9,9 +9,18 @@ public class EmployeeImage {
 
 	@Id
 	private String id;
-
+	private int employeeId;
 	private String name;
 	private Binary image;
+
+	
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	public String getId() {
 		return id;
