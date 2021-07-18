@@ -28,6 +28,12 @@ public class Employee {
 	public String email;
 	public double monthSalary;
 	public String password;
+	public String job;
+	public String position;
+	public String phoneNumber;
+	public String address;
+
+	public String employeeImageId;
 
 	// we describe the relationship btw two tables in this case
 	// it is a 1:n relationship btw Employee and Expense,
@@ -59,6 +65,21 @@ public class Employee {
 		this.monthSalary = monthSalary;
 		this.password = password;
 	}
+	
+	public Employee(String name, String surname, int age, String email, double monthSalary, String password, String job,
+			String position, String phoneNumber, String address) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.age = age;
+		this.email = email;
+		this.monthSalary = monthSalary;
+		this.password = password;
+		this.job = job;
+		this.position = position;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+	}
 
 	public List<Enrollment> getEnrollments() {
 		return enrollments;
@@ -86,6 +107,48 @@ public class Employee {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmployeeImageId() {
+		return employeeImageId;
+	}
+	
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	
+	public void setEmployeeImageId(String employeeImageId) {
+		this.employeeImageId = employeeImageId;
 	}
 
 	public int getId() {
@@ -136,11 +199,16 @@ public class Employee {
 		this.monthSalary = monthSalary;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", surname=" + surname + ", age=" + age + ", email=" + email
-				+ ", monthSalary=" + monthSalary + "]\n";
+				+ ", monthSalary=" + monthSalary + ", password=" + password + ", job=" + job + ", position=" + position
+				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", employeeImageId=" + employeeImageId
+				+ "]";
 	}
+
+	
+
+	
 
 }

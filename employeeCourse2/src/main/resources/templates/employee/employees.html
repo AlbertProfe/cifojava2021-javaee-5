@@ -42,16 +42,15 @@
 		</div>
 
 		<table id="myTable"
-			class="w3-table-all w3-card-4 w3-padding-64 w3-margin"
-			style="width: 80%">
+			class="w3-table-all w3-card-4 w3-padding-64 w3-margin" style="width:97%">
 			<tr class="w3-black w3-hover-teal">
 				<td>id</td>
 				<td>name</td>
 				<td>surname</td>
 				<td>age</td>
 				<td>email</td>
-				<td>salary</td>
-				<td>password</td>
+				<td>job</td>
+				<td>address</td>
 				<td class="w3-center">CRUD actions</td>
 				<td class="w3-center">add items</td>
 			</tr>
@@ -62,8 +61,8 @@
 				<td th:text="${employee.surname}"></td>
 				<td th:text="${employee.age}"></td>
 				<td th:text="${employee.email}"></td>
-				<td th:text="${employee.monthSalary}"></td>
-				<td th:text="${employee.password}"></td>
+				<td th:text="${employee.job}"></td>
+				<td th:text="${employee.address}"></td>
 
 				<td class="w3-center"><a
 					th:href="@{detailEmployee(id=${employee.id})}"

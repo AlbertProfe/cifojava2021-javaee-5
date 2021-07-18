@@ -74,12 +74,12 @@ public class HomeController {
 		Faker faker = new Faker();
 		// Random rand = new Random();
 		int max = 1525;
-		int count = 0;
+		int count = 1;
 		int intRandom;
 		int intRandom2;
 		int countExpenseid = 1;
 
-		while (count < qtyToCreate) {
+		while (count <= qtyToCreate) {
 
 			stringRandom1 = alphabetChars.charAt(createIntRandom(alphabetChars.length()));
 			stringRandom2 = alphabetChars.charAt(createIntRandom(alphabetChars.length()));
@@ -95,7 +95,9 @@ public class HomeController {
 			employeeRepository.save(new Employee(faker.name().firstName(), faker.name().lastName(),
 					faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
 					faker.number().randomDouble(2, 5, 2000),
-					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3));
+					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3,
+					faker.job().title(), faker.job().position(), faker.phoneNumber().cellPhone() ,faker.address().fullAddress()
+					));
 
 			certificateRepository
 					.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(),
@@ -106,7 +108,7 @@ public class HomeController {
 					faker.number().randomDouble(2, 1550, 20000),
 					faker.name().firstName() + " " + faker.name().lastName()));
 
-			count++;
+			
 
 			int countExpense = 0;
 			while (countExpense < 10) {
@@ -118,11 +120,13 @@ public class HomeController {
 			}
 
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
+			
+			count++;
 
 		}
 
 		count = 1;
-		while (count < qtyToCreate) {
+		while (count <= qtyToCreate) {
 			enrollmentRepository.save(
 					new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10), true, "FINISHED",
 							employeeRepository.findById(count).get(), courseRepository.findById(count).get()));
@@ -139,9 +143,9 @@ public class HomeController {
 
 		}
 		//we need to delete the last enrollment because the assign course (id) doesn't exist and it will be null
-		enrollmentRepository.deleteById((qtyToCreate-1)*3);
+		//enrollmentRepository.deleteById((qtyToCreate-1)*3);
 		//we need to delete the last course because the assign certificate (id) doesn't exist and it will be null
-		courseRepository.deleteById(qtyToCreate);
+		//courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";
 	}

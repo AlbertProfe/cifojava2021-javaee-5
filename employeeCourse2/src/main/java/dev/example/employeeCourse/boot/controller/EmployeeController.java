@@ -153,6 +153,7 @@ public class EmployeeController {
 	//-----------------------detail----------------------------------
 	@RequestMapping("/detailEmployee")
 	public String detailEmployee(int id, Model model) {
+		
 
 		Optional<Employee> employeeFound = findOneEmployeeById(id);
 
@@ -245,7 +246,7 @@ public class EmployeeController {
 		public String insertEmployeeImage(@RequestParam String name, @RequestParam int employeeId,  @RequestParam MultipartFile file, RedirectAttributes redirectAttributes)
 				throws IOException {
 			
-			System.out.println("Image name: " + name);
+			//System.out.println("Image name: " + name);
 
 			EmployeeImage employeeImage = new EmployeeImage();
 			employeeImage.setName(name);
@@ -253,6 +254,16 @@ public class EmployeeController {
 			employeeImage.setImage(new Binary(file.getBytes()));
 			
 			employeeImageRepository.save(employeeImage);
+			
+			Optional<Employee> employeeFound = findOneEmployeeById(employeeId);
+
+			if (employeeFound.isPresent()) {
+				
+				employeeFound.get().setEmployeeImageId(employeeImage.getId());
+				employeeRepository.save(employeeFound.get());
+			}
+			
+			
 
 			redirectAttributes.addFlashAttribute("message",
 					"You successfully uploaded " + file.getOriginalFilename() + "!");

@@ -89,9 +89,13 @@
 					class="w3-button w3-small w3-red">Delete</a> <a
 					th:href="@{updateExpense(id=${expense.id})}"
 					class="w3-button w3-small w3-blue">Update</a></td>
-				<td th:text="${expense.employee.name +'  ' + expense.employee.surname +'  (' + expense.employee.email+')'}"></td>
-				<td class="w3-center"><a th:href="@{/employee/detailEmployee(id=${expense.employee.id})}"
-					class="w3-button w3-small w3-teal">Detail Emplolyee</a></td>
+			
+				<td th:text="${expense.employee?.name +'  ' + expense.employee?.surname +'  (' + expense.employee?.email+')'} "></td>
+				
+		
+				<td class="w3-center"><a th:if="${expense.employee}" th:href="@{/employee/detailEmployee(id=${expense.employee?.id})}"
+					class="w3-button w3-small w3-teal">Detail Employee</a></td>
+				
 			</tr>
 		</table>
 		<script>
