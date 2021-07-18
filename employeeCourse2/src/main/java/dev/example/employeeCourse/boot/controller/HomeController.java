@@ -138,7 +138,9 @@ public class HomeController {
 			count++;
 
 		}
-
+		//we need to delete the last enrollment because the assign course (id) doesn't exist and it will be null
+		enrollmentRepository.deleteById((qtyToCreate-1)*3);
+		//we need to delete the last course because the assign certificate (id) doesn't exist and it will be null
 		courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";

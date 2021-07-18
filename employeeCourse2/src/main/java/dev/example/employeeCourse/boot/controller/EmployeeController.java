@@ -209,6 +209,26 @@ public class EmployeeController {
 			else
 				return "home/notfound.html";
 		}
+		
+		//----------------------- add image employee ---------------------------------	
+		@RequestMapping("/addImageEmployee")
+		public String addImageEmployee(int id, Model model) {
+
+			Optional<Employee> employeeFound = findOneEmployeeById(id);
+
+			if (employeeFound.isPresent()) {
+
+				model.addAttribute("employeefromController", employeeFound.get());
+				
+				
+				return "employee/addimage";
+			}
+
+			else
+				return "home/notfound.html";
+		}
+		
+		
 	
 //--------------------------------------------------------------------------------
 //------------------------- service to controller --------------------------------

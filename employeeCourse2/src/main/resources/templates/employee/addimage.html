@@ -47,6 +47,32 @@ ul li.checked::before {
 <body>
 	<!-- Fragment-->
 	<div layout:fragment="content">
+		<!-- Script for upload image -->
+		<script>
+
+		
+		function imageUpload(uploadImage){
+			
+	    	    alert('The upload operation is aobut to start!');
+	    	 
+	    	    var formdata = new FormData();
+	    	    formdata.append("file", fileInput.files[0], "uploadImage");
+	    	    formdata.append("name", "1");
+
+	    	    var requestOptions = {
+	    	      method: 'POST',
+	    	      body: formdata,
+	    	      redirect: 'follow'
+	    	    };
+
+	    	    fetch("http://localhost:8086/employeeImage", requestOptions)
+	    	      .then(response => response.text())
+	    	      .then(result => console.log(result))
+	    	      .catch(error => console.log('error', error));
+				
+				alert('The file is been uploading ....');
+	    }	
+		</script>
 
 		<!-- <!-- Page Container -->
 		<div class="w3-container w3-content"
@@ -54,7 +80,7 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form th:action="@{/employee/insertCourse(id=${employee.id})}"	method="post">
+			<form  id="uploadimageform">
 
 				<!-- The Grid -->
 				<div class="w3-row">
@@ -110,64 +136,39 @@ ul li.checked::before {
 						<!-- Select Course to Employee by Id  -->
 						<div class="w3-card-4" th:object="${course}">
 							<header class="w3-container w3-light-grey">
-								<h3>+ Add Course</h3>
+								<h3>+ Add Image</h3>
 
 							</header>
 							<div class="w3-container">
-								<p>Select course</p>
+								<p>Upload image</p>
 								<p></p>
 								<hr>
-								<div class="w3-dropdown-hover w3-center">
-									<select class="w3-button w3-blue" id="selectCourse"
-										name="idCourse">
 
-										<option th:value="0">No course</option>
-										<option th:each="course : ${coursesfromController}"
-											th:value="${course.id}"
-											
-											th:text="${course.certificate.name} +
-											' '+ ${course.certificate.hours} +' hours'  + 
-											'  '+${course.teacher}+
-											' - Room: '+ ${course.room} +
-											' - Fee:  '+ ${course.fee} + ' €'+
-											'  Dates: [' +${#dates.format(course.initDate, 'dd-MM-yyyy')}+
-											'-'  +${#dates.format(course.finishDate, 'dd-MM-yyyy')} + '] '">
-											</option>
-									</select>
+								<div class="w3-container w3-center">
+
+
+									<p>
+										<input value="Select image" class="w3-button w3-light-grey"
+											type="file" id="uploadImage" name="filename">
+									</p>
+									<button  onclick="imageUpload(uploadImage)"
+												class="w3-button w3-blue-grey">Upload Image</button>
+
+
+
+									<hr>
 								</div>
-								<br> <br>
-								<hr>
-								
-							</div>
-							<button type="submit"
-								class="w3-button w3-block w3-gray w3-center">+ Add</button>
 
+							</div>
 						</div>
-						<br>
 					</div>
 					<!-- End Right Column -->
-
 				</div>
 				<!-- End Grid -->
-
-
-
 			</form>
 		</div>
 		<!-- End Page Container -->
-		<!-- End Form -->
 		<br> <br> <br>
-		<script type="text/javascript">
-			function addtolist(x) {
-
-				var list = document.querySelector('ul');
-				list.addEventListener('click', function(ev) {
-					if (ev.target.tagName === 'LI') {
-						ev.target.classList.toggle('checked');
-					}
-				}, false);
-			}
-		</script>
 	</div>
 	<!-- End Fragment-->
 

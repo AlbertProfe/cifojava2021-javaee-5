@@ -41,6 +41,8 @@ public class EmployeeImageRestController {
 	@PostMapping("/employeeImage")
 	public EmployeeImage addEmployeeImage(@RequestParam String name, @RequestParam MultipartFile file)
 			throws IOException {
+		
+		System.out.println("Image name: " + name);
 
 		EmployeeImage employeeImage = new EmployeeImage();
 		employeeImage.setName(name);

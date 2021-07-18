@@ -26,6 +26,7 @@
 				}
 				document.getElementById(itememployeeName).style.display = "block";
 			}
+
 		</script>
 		<!-- Main div -->
 		<div class="w3-container w3-content"
@@ -67,9 +68,14 @@
 											class="w3-button w3-red w3-center">Delete</a> <a
 											th:href="@{updateEmployee(id=${employee.id})}"
 											class="w3-button w3-blue">Update</a>
+											<a
+											th:href="@{addImageEmployee(id=${employee.id})}"
+											class="w3-button w3-blue-gray">+ Add Image</a>
+
 
 										<hr>
 									</div>
+								
 								</div>
 								<button class="w3-button w3-block w3-dark-grey">+
 									Follow</button>
@@ -88,7 +94,7 @@
 						<header class="w3-container w3-light-grey">
 							<h3>Employee Items</h3>
 						</header>
-						
+
 						<!-- Button tabs  -->
 						<div class="w3-bar w3-blue-gray">
 							<button class="w3-bar-item w3-large w3-button"
@@ -133,7 +139,8 @@
 													th:text="${'id certificate: IFCT-'+ enroll.course.certificate.id}"></span><br>
 												<span
 													th:text="${enroll.course.certificate.name} +'  (author reference: ' +${enroll.course.certificate.author} +')  ' +${enroll.course.certificate.hours} + ' hours'"></span>
-												<br><br> <a th:href="@{addCourse(id=${employee.id})}"
+												<br> <br> <a
+													th:href="@{addCourse(id=${employee.id})}"
 													class="w3-button w3-small w3-blue w3-left">Update
 													Status Course</a>
 
@@ -149,13 +156,13 @@
 								<hr>
 							</div>
 						</div>
-						
+
 						<!-- Expenses -->
 						<div id="Expenses" class="w3-container itememployee"
 							style="display: none">
 							<p>There is no expenses added to this employee</p>
 						</div>
-						
+
 						<!-- Holidays -->
 						<div id="Holidays" class="w3-container itememployee"
 							style="display: none">
@@ -168,6 +175,6 @@
 		</div>
 
 	</div>
-	
+
 </body>
 </html>
