@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+	background: #ddd;
+}
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+	background: #888;
+	color: #fff;
+	text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+	content: '';
+	position: absolute;
+	border-color: #fff;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	top: 10px;
+	left: 16px;
+	transform: rotate(45deg);
+	height: 15px;
+	width: 7px;
+}
+</style>
+</head>
+
+<body>
+	<!-- Fragment-->
+	<div layout:fragment="content">
+
+		<!-- <!-- Page Container -->
+		<div class="w3-container w3-content"
+			th:each="employee:${employeefromController}"
+			style="max-width: 1600px; margin-top: 50px">
+
+			<!-- Form -->
+			<form action= "#" th:action="@{/employee/replaceEmployeeCourse/{idEnrollment}(idEnrollment=${enrollment.id})}"
+				th:object="${enrollment}" method="post">
+
+				<!-- The Grid -->
+				<div class="w3-row">
+
+					<!-- Left Column Employee Detail-->
+					<div class="w3-col m4">
+						<div class="w3-row-padding">
+							<div class="w3-col m12">
+								<!-- Course -->
+								<div class="w3-card-4">
+									<header class="w3-container w3-light-grey">
+										<h3
+											th:text="${employee.id} + ' ' +${employee.name} + ' ' + ${employee.surname}"></h3>
+
+									</header>
+									<div class="w3-container">
+										<p>Pending update Holidays and Expenses</p>
+										<p></p>
+										<hr>
+										<img
+											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											alt="Avatar" class="w3-left w3-circle w3-margin-right"
+											style="width: 60px">
+										<p th:text="${employee.job}"></p>
+										<p th:text="${employee.position}"></p>
+										<br>
+										<p th:text="${employee.address}"></p>
+										<p th:text="${employee.phoneNumber}"></p>
+										<p th:text="${employee.age}"></p>
+										<p th:text="${employee.email}"></p>
+
+										<p th:text="${employee.monthSalary}"></p>
+										<p th:text="${employee.password}"></p>
+										<hr>
+										<div class="w3-container w3-center">
+
+											<a th:href="@{deleteEmployee(id=${employee.id})}"
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> <a
+												th:href="@{addImageEmployee(id=${employee.id})}"
+												class="w3-button w3-blue-gray">+ Add Image</a>
+
+
+											<hr>
+										</div>
+
+									</div>
+									<a class="w3-button w3-block w3-dark-grey"
+										th:href="@{allEmployees}"> All Employees</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Left Column -->
+
+
+					<!-- Right Update Enrollment Status -->
+					<div class="w3-col m8">
+						<!-- Update status  -->
+						<div class="w3-card-4">
+							<header class="w3-container w3-light-grey">
+								<h3>Update Enrollment Course</h3>
+
+							</header>
+							<div class="w3-container">
+								<p>Update enrollment course status</p>
+								<p></p>
+								<hr>
+
+								<div class="w3-container">
+									<ul id="coursesUL" class="w3-ul w3-card-4">
+										<li class="w3-bar"><img
+											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											class="w3-bar-item w3-circle w3-hide-small"
+											style="width: 105px">
+											<div class="w3-bar-item">
+
+												<span class="w3-large"
+													th:text="${'id enrollment: ENRO-C-'+ enrollment.id}"></span><br>
+
+												<span th:text="${'status: '}"></span> <span
+													style="color: red" th:text="${enrollment.status}"></span> <span
+													th:text="${' Approved: '+ enrollment.approved + '  - Enrollment date: '+ enrollment.enrollmentDate}"></span>
+												<br> <span style="font-weight: bold"
+													th:text="${'id course: '+ enrollment.course.id}"></span><br>
+
+												<span
+													th:text="${enrollment.course.teacher}+' - Room: '+${enrollment.course.room}+ '   Fee: ' 
+													+${enrollment.course.fee}+ ' €  '
+												+${#dates.format(enrollment.course.initDate, 'dd-MM-yyyy')}+' - '+${#dates.format(enrollment.course.finishDate, 'dd-MM-yyyy')}+ ' ' 
+												+ ${enrollment.course.calendarCourse}"></span><br>
+
+												<span style="font-weight: bold"
+													th:text="${'id certificate: IFCT-'+ enrollment.course.certificate.id}"></span><br>
+												<span
+													th:text="${enrollment.course.certificate.name} +'  (author reference: ' +${enrollment.course.certificate.author} +')  ' 
+													+${enrollment.course.certificate.hours} + ' hours'"></span>
+												<br> <br>
+
+											</div></li>
+									</ul>
+
+
+
+									<p>
+										<label class="w3-text-gray"><b>Status</b></label> <input
+											class="w3-input w3-border w3-light-grey" name="status"
+											type="text" required>
+									</p>
+
+									<p>
+										<label class="w3-text-gray"><b>Approved</b></label> <input
+											class="w3-input w3-border w3-light-grey" name="approved">
+									</p>
+								</div>
+								<br>
+								<hr>
+
+								<div th:if="${message}">
+									<p th:text="${message}"></p>
+								</div>
+
+							</div>
+							<button type="submit"
+								class="w3-button w3-block w3-gray w3-center">Update
+								status</button>
+
+						</div>
+						<br>
+					</div>
+					<!-- End Right Column -->
+
+				</div>
+				<!-- End Grid -->
+
+
+
+			</form>
+		</div>
+		<!-- End Page Container -->
+		<!-- End Form -->
+		<br> <br> <br>
+		<script type="text/javascript">
+			function addtolist(x) {
+
+				var list = document.querySelector('ul');
+				list.addEventListener('click', function(ev) {
+					if (ev.target.tagName === 'LI') {
+						ev.target.classList.toggle('checked');
+					}
+				}, false);
+			}
+		</script>
+	</div>
+	<!-- End Fragment-->
+
+</body>
+</html>

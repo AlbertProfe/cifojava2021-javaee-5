@@ -116,30 +116,15 @@ ul li.checked::before {
 						<!-- Select Course to Employee by Id  -->
 						<div class="w3-card-4" th:object="${course}">
 							<header class="w3-container w3-light-grey">
-								<h3>+ Add Course</h3>
+								<h3>+ Add Holidays</h3>
 
 							</header>
 							<div class="w3-container">
-								<p>Select course</p>
+								<p>Create Holidays</p>
 								<p></p>
 								<hr>
 								<div class="w3-dropdown-hover w3-center">
-									<select class="w3-button w3-blue" id="selectCourse"
-										name="idCourse">
-
-										<option th:value="0">No course</option>
-										<option th:each="course : ${coursesfromController}"
-											th:value="${course.id}"
-											
-											th:text="${course.certificate.name} +
-											' '+ ${course.certificate.hours} +' hours'  + 
-											'  '+${course.teacher}+
-											' - Room: '+ ${course.room} +
-											' - Fee:  '+ ${course.fee} + ' €'+
-											'  Dates: [' +${#dates.format(course.initDate, 'dd-MM-yyyy')}+
-											'-'  +${#dates.format(course.finishDate, 'dd-MM-yyyy')} + '] '">
-											</option>
-									</select>
+									
 								</div>
 								<br> 
 								<hr>
