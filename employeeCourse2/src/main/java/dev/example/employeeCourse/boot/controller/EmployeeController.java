@@ -245,8 +245,7 @@ public class EmployeeController {
 		
 
 	}
-	
-	
+		
 	@PostMapping("/replaceEmployeeCourse/{idEnrollment}")
 	public String replaceCourseEmployee(@PathVariable("idEnrollment") int id, Enrollment enrollment, RedirectAttributes redirectAttributes) {
 
