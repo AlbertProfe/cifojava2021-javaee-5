@@ -21,13 +21,15 @@
 
 		</div>
 
-		<!-- cards with direct ACCESS: filling -->
+		<!-- cards with direct ACCESS -->
 		<div class="w3-row-padding w3-center w3-margin-top">
+
+			<!-- filling -->
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
 					<hr>
-					<p style="font-weight: bold">How many employees do you want
-						to create?</p>
+					<p style="font-weight: bold">How many employees do you want to
+						create?</p>
 					<hr>
 
 					<a th:href="@{/fillinemployee(qtyToCreate=10)}"
@@ -58,59 +60,69 @@
 					<p></p>
 					<p></p>
 					<hr>
-					<span>(1) employees/expenses/holidays/courses and certificates</span><br>
-					<span>(2) with the enrollments employee-courses and
-						employee-expenses (1 to 10)</span><br> <span>(3) @onetomany
-						and @manytomany relationships</span>
+					<span>(1) employees/expenses/holidays/courses and
+						certificates</span><br> <span>(2) with the enrollments
+						employee-courses and employee-expenses (1 to 10)</span><br> <span>(3)
+						@onetomany and @manytomany relationships</span>
 					<hr>
 
 				</div>
 			</div>
+
+			<!-- micro-dashboard -->
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
-					<p>Next to do: filter</p>
+					<h2>Next to do: micro-dashboard</h2>
 				</div>
 			</div>
+			
+			<!-- links  -->
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
-					<p>Next to do: api rest</p>
+					<h2>Next to do: api rest links</h2>
 				</div>
 			</div>
+		
 		</div>
 
-
 		<hr>
-
-
 
 		<!-- cards with INFO spring -->
 		<div class="w3-row-padding w3-center w3-margin-top">
 
-			<div class="w3-third">
+			<!-- cards with INFO spring: FRONT END -->
+			<div class="w3-card-12" style="width: 50%; margin: 0 auto;">
 				<div class="w3-card w3-container" style="min-height: 460px">
 					<h3>Front End</h3>
 					<br> <i class="fa fa-desktop w3-margin-bottom w3-text-theme"
 						style="font-size: 120px"></i>
 					<p>ThymeLeaf</p>
-					<p>HTML/JS</p>
+					<p>HTML5</p>
 					<p>W3.css</p>
-					<p>Api Rest / Rest Template</p>
+					<p>JS</p>
 				</div>
 			</div>
-
-			<div class="w3-third">
+			
+			<hr>
+			
+			<!-- cards with INFO spring: BACK END -->
+			<div class="w3-card-12" style="width: 50%; margin: 0 auto;">
 				<div class="w3-card w3-container" style="min-height: 460px">
 					<h3>Back End</h3>
-					<br> <i class="fa fa-cogs w3-margin-bottom w3-text-theme"
+					<br> <i class="fa fa-cog w3-margin-bottom w3-text-theme"
 						style="font-size: 120px"></i>
 					<p>Spring Boot Security</p>
-					<p>Controller and CrudRepository</p>
+					<p>Controller and CrudRepository, MongoRepository</p>
 					<p>JPA</p>
-					<p>Api Rest / Swagger</p>
+					<p>Security</p>
+					
 				</div>
 			</div>
-
-			<div class="w3-third">
+			
+			<hr>
+			
+			<!-- cards with INFO spring: DATA BASE -->
+			<div class="w3-card-12" style="width: 50%; margin: 0 auto;">
 				<div class="w3-card w3-container" style="min-height: 460px">
 					<h3>Data Base</h3>
 					<br> <i class="fa fa-database w3-margin-bottom w3-text-theme"
@@ -118,12 +130,26 @@
 					<p>H2 Local Server</p>
 					<p>H2 in memory</p>
 					<p>JPA @OneToMany @ManyToOne</p>
-					<p>MongoDB Images</p>
+					<p>MongoDB Binary Images and CrudRepository</p>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<!-- cards with INFO spring: API REST -->
+			<div class="w3-card-12" style="width: 50%; margin: 0 auto;">
+				<div class="w3-card w3-container" style="min-height: 460px">
+					<h3>API REST and DEPLOY</h3>
+					<br> <i class="fa fa-cogs w3-margin-bottom w3-text-theme"
+						style="font-size: 120px"></i>
+					<p>Api Rest / Rest Template</p>
+					<p>Postman / Swagger</p>
+					<p>Deploy on Heroku</p>
 				</div>
 			</div>
 		</div>
 
 	</div>
-	</div>
+
 </body>
 </html>

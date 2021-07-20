@@ -64,22 +64,24 @@
 				<td th:text="${employee.job}"></td>
 				<td th:text="${employee.address}"></td>
 
-				<td class="w3-center"><a
-					th:href="@{detailEmployee(id=${employee.id})}"
-					class="w3-button w3-small w3-teal">Detail</a> <a
-					th:href="@{updateEmployee(id=${employee.id})}"
+				<td class="w3-center">
+				<a	th:href="@{items/detailEmployee(id=${employee.id})}"
+					class="w3-button w3-small w3-teal">Detail</a> 
+					
+					<a	th:href="@{updateEmployee(id=${employee.id})}"
 					class="w3-button w3-small w3-blue">Update</a>
 					<a 	th:href="@{deleteEmployee(id=${employee.id})}"
 					class="w3-button w3-small w3-red">Delete</a> </td>
 				<td class="w3-center"> <a
-					th:href="@{addCourse(id=${employee.id})}"
+					th:href="@{items/course/addCourse(id=${employee.id})}"
 					class="w3-button w3-small w3-indigo">+ Course</a> <a
-					th:href="@{addCourse(id=${employee.id})}"
+					th:href="@{items/expense/addExpense(id=${employee.id})}"
 					class="w3-button  w3-small w3-purple">+ Expense</a> <a
-					th:href="@{addCourse(id=${employee.id})}"
+					th:href="@{items/detailEmployee(id=${employee.id})}"
 					class="w3-button w3-small w3-dark-gray">+ Holidays</a> 
+					<!-- to-do: th:href="@{items/holidays/addHolidays(id=${employee.id})}" -->
 					<a
-					th:href="@{addImageEmployee(id=${employee.id})}"
+					th:href="@{items/addImageEmployee(id=${employee.id})}"
 					class="w3-button w3-small w3-blue-gray">+ image file</a></td>
 
 

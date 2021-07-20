@@ -54,7 +54,7 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form action= "#" th:action="@{/employee/replaceEmployeeCourse/{idEnrollment}(idEnrollment=${enrollment.id})}"
+			<form action= "#" th:action="@{/employee/items/course/replaceEmployeeCourse/{idEnrollment}(idEnrollment=${enrollment.id})}"
 				th:object="${enrollment}" method="post">
 
 				<!-- The Grid -->
@@ -105,7 +105,7 @@ ul li.checked::before {
 
 									</div>
 									<a class="w3-button w3-block w3-dark-grey"
-										th:href="@{detailEmployee(id=${employee.id})}"> Detail Employee</a>
+										th:href="@{~/employee/items/detailEmployee(id=${employee.id})}"> Detail Employee</a>
 								</div>
 							</div>
 						</div>

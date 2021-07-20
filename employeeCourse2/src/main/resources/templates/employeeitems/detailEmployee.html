@@ -52,7 +52,7 @@
 									<p></p>
 									<hr>
 									<img
-										src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+										src="http://localhost:8086/getEmployeeImage/?id=60f6a548c47f3c3d4d5d495c"
 										alt="Avatar" class="w3-left w3-circle w3-margin-right"
 										style="width: 60px">
 									<p th:text="${employee.job}"></p>
@@ -68,11 +68,11 @@
 									<hr>
 									<div class="w3-container w3-center">
 
-										<a th:href="@{deleteEmployee(id=${employee.id})}"
+										<a th:href="@{~/employee/deleteEmployee(id=${employee.id})}"
 											class="w3-button w3-red w3-center">Delete</a> <a
-											th:href="@{updateEmployee(id=${employee.id})}"
+											th:href="@{~/employee/updateEmployee(id=${employee.id})}"
 											class="w3-button w3-blue">Update</a> <a
-											th:href="@{addImageEmployee(id=${employee.id})}"
+											th:href="@{~/employee/items/addImageEmployee(id=${employee.id})}"
 											class="w3-button w3-blue-gray">+ Add Image</a>
 
 
@@ -81,7 +81,7 @@
 
 								</div>
 								<a class="w3-button w3-block w3-dark-grey"
-									th:href="@{allEmployees}"> All Employees</a>
+									th:href="@{~/employee/allEmployees}"> All Employees</a>
 							</div>
 
 						</div>
@@ -150,7 +150,7 @@
 													th:text="${enroll.course.certificate.name} +'  (author reference: ' +${enroll.course.certificate.author} +')  ' 
 													+${enroll.course.certificate.hours} + ' hours'"></span>
 												<br> <br> <a
-													th:href="@{updateEmployeeCourse(id=${enroll.id})}"
+													th:href="@{course/updateEmployeeCourse(id=${enroll.id})}"
 													class="w3-button w3-small w3-blue w3-left">Update
 													Status Course</a>
 
@@ -162,7 +162,7 @@
 							</div>
 
 							<div class="w3-center">
-								<a th:href="@{addCourse(id=${employee.id})}"
+								<a th:href="@{course/addCourse(id=${employee.id})}"
 									class="w3-button w3-small w3-indigo">+ Add Course</a>
 								<hr>
 							</div>
@@ -220,6 +220,7 @@
 					    <!-- Holidays -->
 					    <div id="Holidays" class="w3-container itememployee"
 							style="display: none">
+							<p style="font-weight: bold">To-do</p>
 							<p>There is no holidays added to this employee</p>
 							<div class="w3-center">
 								<a th:href="@{addHolidays(id=${employee.id})}"
