@@ -19,12 +19,14 @@ import dev.example.employeeCourse.boot.model.Employee;
 import dev.example.employeeCourse.boot.model.EmployeeImage;
 import dev.example.employeeCourse.boot.model.Enrollment;
 import dev.example.employeeCourse.boot.model.Expense;
+import dev.example.employeeCourse.boot.model.Holidays;
 import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeImageRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 import dev.example.employeeCourse.boot.repository.EnrollmentRepository;
 import dev.example.employeeCourse.boot.repository.ExpenseRepository;
+import dev.example.employeeCourse.boot.repository.HolidaysRepository;
 
 @Controller
 @RequestMapping("/employee/items/")
@@ -47,7 +49,9 @@ public class EmployeeItemsController {
 	
 	@Autowired
 	ExpenseRepository expenseRepository;
-
+	
+	@Autowired
+	HolidaysRepository holidaysRepository;
 	
 	// -----------------------detail----------------------------------
 	@RequestMapping("/detailEmployee")
@@ -68,6 +72,11 @@ public class EmployeeItemsController {
 					.findAllExpenseByEmployee(employeeRepository.findById(id).get());
 
 			model.addAttribute("expensefromController", expenseFound.get());
+			
+			Optional<Iterable<Holidays>> holidaysFound = holidaysRepository
+					.findAllHolidaysByEmployee(employeeRepository.findById(id).get());
+
+			model.addAttribute("holidaysfromController", holidaysFound.get());
 
 			return "employeeitems/detailemployee";
 		}
@@ -125,7 +134,7 @@ public class EmployeeItemsController {
 			redirectAttributes.addFlashAttribute("message",
 					"You successfully uploaded " + file.getOriginalFilename() + "!");
 
-			return "redirect:/employee/items/course/addImageEmployee?id=" + employeeId;
+			return "redirect:/employee/items/addImageEmployee?id=" + employeeId;
 		}
 		
 	

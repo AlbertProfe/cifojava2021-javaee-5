@@ -54,9 +54,9 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form
-				th:action="@{/employee/items/expense/insertExpense(employeeId=${employee.id})}"
-				method="post">
+			<form action="#"
+				th:action="@{~/employee/items/holidays/insertHolidays/{idHolidays}(idHolidays=${holidays.id})}"
+				th:object="${holidays}" method="post">
 
 				<!-- The Grid -->
 				<div class="w3-row">
@@ -77,7 +77,7 @@ ul li.checked::before {
 										<p></p>
 										<hr>
 										<img
-											src="http://localhost:8086/getEmployeeImage/?id=60f7cb3f579562673d1eb419"
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cb2d579562673d1eb417"
 											alt="Avatar" class="w3-left w3-circle w3-margin-right"
 											style="width: 60px">
 										<p th:text="${employee.job}"></p>
@@ -94,11 +94,11 @@ ul li.checked::before {
 										<div class="w3-container w3-center">
 
 											<a th:href="@{~/employee/deleteEmployee(id=${employee.id})}"
-											class="w3-button w3-red w3-center">Delete</a> <a
-											th:href="@{~/employee/updateEmployee(id=${employee.id})}"
-											class="w3-button w3-blue">Update</a> <a
-											th:href="@{~/employee/items/addImageEmployee(id=${employee.id})}"
-											class="w3-button w3-blue-gray">+ Add Image</a>
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{~/employee/updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> <a
+												th:href="@{~/employee/items/addImageEmployee(id=${employee.id})}"
+												class="w3-button w3-blue-gray">+ Add Image</a>
 
 
 											<hr>
@@ -115,63 +115,74 @@ ul li.checked::before {
 					<!-- End Left Column -->
 
 
-					<!-- Right Column Expense to Employee -->
+					<!-- Right Update Enrollment Status -->
 					<div class="w3-col m8">
-						<!-- Create Expense to Employee by Id  -->
-						<div class="w3-card-4" th:object="${expense}">
+						<!-- Update status  -->
+						<div class="w3-card-4">
 							<header class="w3-container w3-light-grey">
-								<h3>+ Add Expense</h3>
+								<h3>Update Holidays Dates</h3>
+
 							</header>
 							<div class="w3-container">
-								<p>Create expense</p>
+								<p>Update holidays dates</p>
 								<p></p>
 								<hr>
-								<p>
-									<label class="w3-text-gray"><b>employee id</b></label> <input
-										class="w3-input w3-border w3-light-grey" type="number"
-										name="employeeId" th:value="${employee.id}" readonly>
-								</p>
+								<span class="w3-large"
+									th:text="${'Year: '+ holidays.year + ' (id: ' + holidays.id + ')'}"></span><br>
 
-								<p>
-									<label class="w3-text-gray"><b>Name</b></label> <input
-										class="w3-input w3-border w3-light-grey" name="name"
-										placeholder="festa" type="text" required>
-								</p>
+								<span style="color: blue"
+									th:text="${'Holidays done: ' + holidays.daysHolidaysQty}"></span><br>
 
-								<p>
-									<label class="w3-text-gray"><b>Date</b></label> <input
-										class="w3-input w3-border w3-light-grey" name="date"
-										placeholder="1/1/2021" type="date" required>
-								</p>
+								<span
+									th:text="${'Total holidays in '+ holidays.year +  ' maximun: '}"></span>
+								<span style="font-weight: bold"
+									th:text="${holidays.officialYearHolidaysQty}"></span> <br>
+								<span
+									th:with="result=${holidays.officialYearHolidaysQty - holidays.daysHolidaysQty}">
+									<span style="color: red"
+									th:text="${'Holidays left: ' + result}"></span>
+								</span>
+								<p th:text="${ 'Holidays dates:'}"></p>
 
-								<p>
-									<label class="w3-text-gray"><b>Value</b></label> <input
-										class="w3-input w3-border w3-light-grey" name="value"
-										placeholder="0.0" step="0.01" min="0" type="number" value=0.0>
-								</p>
-								<Br>
-								<hr>
-								<div th:if="${message}" class="w3-panel w3-pale-green w3-center w3-display-container">
-								<span onclick="this.parentElement.style.display='none'"
-										class="w3-button w3-pale-green w3-large w3-display-topright">x</span>
-									<p th:text="${message}"></p>
+								<div class="w3-card-4" th:each="hol:${holidays.daysHolidays}" style="width:50%; margin: 0 auto;">
+									<div class="w3-container">
+									<span
+											onclick="this.parentElement.style.display='none'"
+											class="w3-bar-item w3-button w3-small w3-right">×</span>
+										<span
+											th:text=" '(' + ${holStat.count} + ') ' 
+												+${#dates.format(hol,'dd-MMM')} + '  ' ">
+											
+										</span> <a 	class="w3-button w3-small w3-teal w3-center ">Update
+											date</a>
+									</div>
 								</div>
-							</div>
-							<button type="submit"
-								class="w3-button w3-block w3-gray w3-center">+ Add</button>
 
+
+							</div>
+							<br>
+							<hr>
+							<div th:if="${message}"
+								class="w3-panel w3-pale-blue w3-center w3-display-container">
+								<span onclick="this.parentElement.style.display='none'"
+									class="w3-button ww3-pale-blue w3-large w3-display-topright">x</span>
+								<p th:text="${message}"></p>
+							</div>
+
+							<button type="submit"
+								class="w3-button w3-block w3-gray w3-center">Update
+								status</button>
 						</div>
-						<br>
+
 					</div>
 					<!-- End Right Column -->
-
 				</div>
 				<!-- End Grid -->
 			</form>
 			<!-- End Form -->
+
 		</div>
 		<!-- End Page Container -->
-
 		<br> <br> <br>
 		<script type="text/javascript">
 			function addtolist(x) {

@@ -18,11 +18,13 @@ import dev.example.employeeCourse.boot.model.Course;
 import dev.example.employeeCourse.boot.model.Employee;
 import dev.example.employeeCourse.boot.model.Enrollment;
 import dev.example.employeeCourse.boot.model.Expense;
+import dev.example.employeeCourse.boot.model.Holidays;
 import dev.example.employeeCourse.boot.repository.CertificateRepository;
 import dev.example.employeeCourse.boot.repository.CourseRepository;
 import dev.example.employeeCourse.boot.repository.EmployeeRepository;
 import dev.example.employeeCourse.boot.repository.EnrollmentRepository;
 import dev.example.employeeCourse.boot.repository.ExpenseRepository;
+import dev.example.employeeCourse.boot.repository.HolidaysRepository;
 
 @Controller
 public class HomeController {
@@ -37,6 +39,8 @@ public class HomeController {
 	private CourseRepository courseRepository;
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
+	@Autowired
+	HolidaysRepository holidaysRepository;
 
 	// ------------------------------home ---------------------------
 	@RequestMapping({ "/home", "/" })
@@ -78,6 +82,8 @@ public class HomeController {
 		int intRandom;
 		int intRandom2;
 		int countExpenseid = 1;
+		int countHolidaysid = 1;
+		int year = 2019;
 
 		while (count <= qtyToCreate) {
 
@@ -92,12 +98,14 @@ public class HomeController {
 			 * } else { randomPublished = false; }
 			 */
 
-			employeeRepository.save(new Employee(faker.name().firstName(), faker.name().lastName(),
-					faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
-					faker.number().randomDouble(2, 5, 2000),
-					String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2 + stringRandom3,
-					faker.job().title(), faker.job().position(), faker.phoneNumber().cellPhone() ,faker.address().fullAddress()
-					));
+			employeeRepository
+					.save(new Employee(faker.name().firstName(), faker.name().lastName(),
+							faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
+							faker.number().randomDouble(2, 5, 2000),
+							String.valueOf((intRandom + 5) * (count + 1) * 6) + stringRandom1 + stringRandom2
+									+ stringRandom3,
+							faker.job().title(), faker.job().position(), faker.phoneNumber().cellPhone(),
+							faker.address().fullAddress()));
 
 			certificateRepository
 					.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(),
@@ -107,8 +115,6 @@ public class HomeController {
 					faker.date().birthday(0, 3), faker.date().birthday(0, 3), "mornings",
 					faker.number().randomDouble(2, 1550, 20000),
 					faker.name().firstName() + " " + faker.name().lastName()));
-
-			
 
 			int countExpense = 0;
 			while (countExpense < 10) {
@@ -120,7 +126,26 @@ public class HomeController {
 			}
 
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
-			
+
+			year = 2019;
+			int countHolidays = 1;
+			int countDatesToAdd = 1;
+			while (countHolidays <= 3) {
+				holidaysRepository.save(new Holidays(year, faker.number().numberBetween(28, 34)));
+				countDatesToAdd = 1;
+				while (countDatesToAdd < faker.number().numberBetween(24, 54)) {
+					holidaysRepository.findById(countHolidaysid).get().addHolidays(
+							new Date(year, faker.number().numberBetween(01, 12), faker.number().numberBetween(01, 31)));
+					countDatesToAdd++;
+				}
+
+				holidaysRepository.findById(countHolidaysid).get()
+						.setEmployee(employeeRepository.findById(count).get());
+				countHolidays++;
+				countHolidaysid++;
+				year++;
+			}
+
 			count++;
 
 		}
@@ -142,10 +167,12 @@ public class HomeController {
 			count++;
 
 		}
-		//we need to delete the last enrollment because the assign course (id) doesn't exist and it will be null
-		//enrollmentRepository.deleteById((qtyToCreate-1)*3);
-		//we need to delete the last course because the assign certificate (id) doesn't exist and it will be null
-		//courseRepository.deleteById(qtyToCreate);
+		// we need to delete the last enrollment because the assign course (id) doesn't
+		// exist and it will be null
+		// enrollmentRepository.deleteById((qtyToCreate-1)*3);
+		// we need to delete the last course because the assign certificate (id) doesn't
+		// exist and it will be null
+		// courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";
 	}

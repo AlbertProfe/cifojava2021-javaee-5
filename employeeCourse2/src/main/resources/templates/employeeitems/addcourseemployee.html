@@ -93,12 +93,12 @@ ul li.checked::before {
 										<hr>
 										<div class="w3-container w3-center">
 
-											<a th:href="@{deleteEmployee(id=${employee.id})}"
-												class="w3-button w3-red w3-center">Delete</a> <a
-												th:href="@{updateEmployee(id=${employee.id})}"
-												class="w3-button w3-blue">Update</a> <a
-												th:href="@{addImageEmployee(id=${employee.id})}"
-												class="w3-button w3-blue-gray">+ Add Image</a>
+											<a th:href="@{~/employee/deleteEmployee(id=${employee.id})}"
+											class="w3-button w3-red w3-center">Delete</a> <a
+											th:href="@{~/employee/updateEmployee(id=${employee.id})}"
+											class="w3-button w3-blue">Update</a> <a
+											th:href="@{~/employee/items/addImageEmployee(id=${employee.id})}"
+											class="w3-button w3-blue-gray">+ Add Image</a>
 
 
 											<hr>
