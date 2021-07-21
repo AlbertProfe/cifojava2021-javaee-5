@@ -52,7 +52,7 @@
 									<p></p>
 									<hr>
 									<img
-										src="http://localhost:8086/getEmployeeImage/?id=60f6a548c47f3c3d4d5d495c"
+										src="http://localhost:8086/getEmployeeImage/?id=60e7fc8c14a7dc49c4618462"
 										alt="Avatar" class="w3-left w3-circle w3-margin-right"
 										style="width: 60px">
 									<p th:text="${employee.job}"></p>
@@ -124,7 +124,7 @@
 										<li class="w3-bar"><span
 											onclick="this.parentElement.style.display='none'"
 											class="w3-bar-item w3-button w3-small w3-right">×</span> <img
-											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cc2b579562673d1eb422"
 											class="w3-bar-item w3-circle w3-hide-small"
 											style="width: 105px">
 											<div class="w3-bar-item">
@@ -177,15 +177,23 @@
 							</div>
 							<div th:if="${!expensefromController.isEmpty()}">
 								<p>There are some expenses from this employee in our DB</p>
+								<div th:if="${message}"
+										class="w3-panel w3-pale-red w3-center w3-display-container">
+										
+										<span onclick="this.parentElement.style.display='none'"
+											class="w3-button w3-pale-red w3-large w3-display-topright">x</span>
+										<p th:text="${message}"></p>
+									</div>
 
 								<!-- Expenses from Controller for THIS id employee -->
 								<div class="w3-container"
 									th:each="expense:${expensefromController}">
+
 									<ul id="expensesUL" class="w3-ul w3-card-4">
 										<li class="w3-bar"><span
 											onclick="this.parentElement.style.display='none'"
 											class="w3-bar-item w3-button w3-small w3-right">×</span> <img
-											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cef7579562673d1eb423"
 											class="w3-bar-item w3-circle w3-hide-small"
 											style="width: 105px">
 											<div class="w3-bar-item">
@@ -196,29 +204,28 @@
 												<span style="color: blue" th:text="${expense.name}"></span>
 												<span th:text="${' Expense date: '+ expense.date}"></span> <br>
 												<span style="font-weight: bold"
-													th:text="${' value: '+ expense.value}"></span><br> <br>
-												<a th:href="@{addCourse(id=${employee.id})}"
+													th:text="${' value: '+ expense.value + ' €'}"></span><br> <br>
+												<a th:href="@{~/employee/items/expense/updateExpense(id=${expense.id})}"
 													class="w3-button w3-small w3-blue w3-left">Update
-													Expense</a> <a th:href="@{addCourse(id=${employee.id})}"
+													Expense</a> <a th:href="@{~/employee/items/expense/deleteExpense(id=${expense.id})}"
 													class="w3-button w3-small w3-red w3-left">Delete
 													Expense</a>
 											</div></li>
 									</ul>
 
 
-								</div>
-								<br> <br>
+								</div> <br>
 								<hr>
 								<div class="w3-center">
-									<a th:href="@{addExpense(id=${employee.id})}"
+									<a th:href="@{expense/addExpense(id=${employee.id})}"
 										class="w3-button w3-small w3-indigo">+ Add Expense</a>
 									<hr>
 								</div>
 							</div>
 						</div>
 
-					    <!-- Holidays -->
-					    <div id="Holidays" class="w3-container itememployee"
+						<!-- Holidays -->
+						<div id="Holidays" class="w3-container itememployee"
 							style="display: none">
 							<p style="font-weight: bold">To-do</p>
 							<p>There is no holidays added to this employee</p>
@@ -227,9 +234,9 @@
 									class="w3-button w3-small w3-indigo">+ Add Holidays</a>
 								<hr>
 							</div>
-					   </div>
-						
-						
+						</div>
+
+
 					</div>
 				</div>
 			</div>

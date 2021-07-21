@@ -1,0 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{home/layout}">
+<head>
+<title>Welcome to my Spring Boot Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+	background: #ddd;
+}
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+	background: #888;
+	color: #fff;
+	text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+	content: '';
+	position: absolute;
+	border-color: #fff;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	top: 10px;
+	left: 16px;
+	transform: rotate(45deg);
+	height: 15px;
+	width: 7px;
+}
+</style>
+</head>
+
+<body>
+	<!-- Fragment-->
+	<div layout:fragment="content">
+
+		<!-- <!-- Page Container -->
+		<div class="w3-container w3-content"
+			th:each="employee:${employeefromController}"
+			style="max-width: 1600px; margin-top: 50px">
+
+			<!-- Form -->
+			<form
+				th:action="@{~/employee/items/expense/insertExpense/{idExpense}(idExpense=${expense.id})}"
+				th:object="${expense}" method="post">
+
+				<!-- The Grid -->
+				<div class="w3-row">
+
+					<!-- Left Column Employee Detail-->
+					<div class="w3-col m4">
+						<div class="w3-row-padding">
+							<div class="w3-col m12">
+								<!-- Course -->
+								<div class="w3-card-4">
+									<header class="w3-container w3-light-grey">
+										<h3
+											th:text="${employee.id} + ' ' +${employee.name} + ' ' + ${employee.surname}"></h3>
+
+									</header>
+									<div class="w3-container">
+										<p>Pending update Holidays and Expenses</p>
+										<p></p>
+										<hr>
+										<img
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cb3f579562673d1eb419"
+											alt="Avatar" class="w3-left w3-circle w3-margin-right"
+											style="width: 60px">
+										<p th:text="${employee.job}"></p>
+										<p th:text="${employee.position}"></p>
+										<br>
+										<p th:text="${employee.address}"></p>
+										<p th:text="${employee.phoneNumber}"></p>
+										<p th:text="${employee.age}"></p>
+										<p th:text="${employee.email}"></p>
+
+										<p th:text="${employee.monthSalary}"></p>
+										<p th:text="${employee.password}"></p>
+										<hr>
+										<div class="w3-container w3-center">
+
+											<a th:href="@{deleteEmployee(id=${employee.id})}"
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> <a
+												th:href="@{addImageEmployee(id=${employee.id})}"
+												class="w3-button w3-blue-gray">+ Add Image</a>
+											<hr>
+										</div>
+
+									</div>
+									<a class="w3-button w3-block w3-dark-grey"
+										th:href="@{~/employee/items/detailEmployee(id=${employee.id})}">
+										Detail Employee</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Left Column -->
+
+
+					<!-- Right Column Expense to Employee -->
+					<div class="w3-col m8">
+						<!-- Create Expense to Employee by Id  -->
+						<div class="w3-card-4" th:object="${expense}">
+							<header class="w3-container w3-light-grey">
+								<h3>Update Expense</h3>
+							</header>
+							<div class="w3-container">
+								<p>Update expense</p>
+								<p></p>
+								<hr>
+								<p>
+									<label class="w3-text-gray"><b>employee id</b></label> <input
+										class="w3-input w3-border w3-light-grey" type="number"
+										name="employeeId" th:value="${expense.id}" readonly>
+								</p>
+
+								<p>
+									<label class="w3-text-gray"><b>Name</b></label> <input
+										class="w3-input w3-border w3-light-grey" name="name"
+										th:value="${expense.name}" type="text" >
+								</p>
+
+								<p>
+									<label class="w3-text-gray"><b>Date</b></label> <input
+										class="w3-input w3-border w3-light-grey" name="date"
+										th:value="${#dates.format( expense.date, 'dd-MM-yyyy')}" type="date" >
+								</p>
+
+								<p>
+									<label class="w3-text-gray"><b>Value</b></label> <input
+										class="w3-input w3-border w3-light-grey" name="value"
+										th:value="${expense.value}" type="number">
+								</p>
+								<Br>
+								<hr>
+								<div th:if="${message}" class="w3-panel w3-pale-blue w3-center w3-display-container">
+								<span onclick="this.parentElement.style.display='none'"
+										class="w3-button w3-pale-blue w3-large w3-display-topright">x</span>
+									<p th:text="${message}"></p>
+								</div>
+							</div>
+							<button type="submit"
+								class="w3-button w3-block w3-gray w3-center">Update</button>
+
+						</div>
+						<br>
+					</div>
+					<!-- End Right Column -->
+
+				</div>
+				<!-- End Grid -->
+			</form>
+			<!-- End Form -->
+		</div>
+		<!-- End Page Container -->
+
+		<br> <br> <br>
+		<script type="text/javascript">
+			function addtolist(x) {
+
+				var list = document.querySelector('ul');
+				list.addEventListener('click', function(ev) {
+					if (ev.target.tagName === 'LI') {
+						ev.target.classList.toggle('checked');
+					}
+				}, false);
+			}
+		</script>
+	</div>
+	<!-- End Fragment-->
+
+</body>
+</html>

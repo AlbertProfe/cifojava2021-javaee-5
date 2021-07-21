@@ -54,7 +54,9 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form th:action="@{/employee/items/course/insertCourse(id=${employee.id})}"	method="post">
+			<form
+				th:action="@{/employee/items/course/insertCourse(id=${employee.id})}"
+				method="post">
 
 				<!-- The Grid -->
 				<div class="w3-row">
@@ -65,47 +67,48 @@ ul li.checked::before {
 							<div class="w3-col m12">
 								<!-- Course -->
 								<div class="w3-card-4">
-								<header class="w3-container w3-light-grey">
-									<h3 th:text="${employee.id} + ' ' +${employee.name} + ' ' + ${employee.surname}"></h3>
+									<header class="w3-container w3-light-grey">
+										<h3
+											th:text="${employee.id} + ' ' +${employee.name} + ' ' + ${employee.surname}"></h3>
 
-								</header>
-								<div class="w3-container">
-									<p>Pending update Holidays and Expenses</p>
-									<p></p>
-									<hr>
-									<img
-										src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
-										alt="Avatar" class="w3-left w3-circle w3-margin-right"
-										style="width: 60px">
-									<p th:text="${employee.job}"></p>
-									<p th:text="${employee.position}"></p>
-									<br>
-									<p th:text="${employee.address}"></p>
-									<p th:text="${employee.phoneNumber}"></p>
-									<p th:text="${employee.age}"></p>
-									<p th:text="${employee.email}"></p>
-								
-									<p th:text="${employee.monthSalary}"></p>
-									<p th:text="${employee.password}"></p>
-									<hr>
-									<div class="w3-container w3-center">
-
-										<a th:href="@{deleteEmployee(id=${employee.id})}"
-											class="w3-button w3-red w3-center">Delete</a> <a
-											th:href="@{updateEmployee(id=${employee.id})}"
-											class="w3-button w3-blue">Update</a>
-											<a
-											th:href="@{addImageEmployee(id=${employee.id})}"
-											class="w3-button w3-blue-gray">+ Add Image</a>
-
-
+									</header>
+									<div class="w3-container">
+										<p>Pending update Holidays and Expenses</p>
+										<p></p>
 										<hr>
+										<img
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cb36579562673d1eb418"
+											alt="Avatar" class="w3-left w3-circle w3-margin-right"
+											style="width: 60px">
+										<p th:text="${employee.job}"></p>
+										<p th:text="${employee.position}"></p>
+										<br>
+										<p th:text="${employee.address}"></p>
+										<p th:text="${employee.phoneNumber}"></p>
+										<p th:text="${employee.age}"></p>
+										<p th:text="${employee.email}"></p>
+
+										<p th:text="${employee.monthSalary}"></p>
+										<p th:text="${employee.password}"></p>
+										<hr>
+										<div class="w3-container w3-center">
+
+											<a th:href="@{deleteEmployee(id=${employee.id})}"
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> <a
+												th:href="@{addImageEmployee(id=${employee.id})}"
+												class="w3-button w3-blue-gray">+ Add Image</a>
+
+
+											<hr>
+										</div>
+
 									</div>
-								
+									<a class="w3-button w3-block w3-dark-grey"
+										th:href="@{~/employee/items/detailEmployee(id=${employee.id})}">
+										Detail Employee </a>
 								</div>
-								<a class="w3-button w3-block w3-dark-grey"
-								 th:href="@{~/employee/items/detailEmployee(id=${employee.id})}"> Detail Employee </a>
-							</div>
 							</div>
 						</div>
 					</div>
@@ -118,7 +121,6 @@ ul li.checked::before {
 						<div class="w3-card-4" th:object="${course}">
 							<header class="w3-container w3-light-grey">
 								<h3>+ Add Course</h3>
-
 							</header>
 							<div class="w3-container">
 								<p>Select course</p>
@@ -131,7 +133,6 @@ ul li.checked::before {
 										<option th:value="0">No course</option>
 										<option th:each="course : ${coursesfromController}"
 											th:value="${course.id}"
-											
 											th:text="${course.certificate.name} +
 											' '+ ${course.certificate.hours} +' hours'  + 
 											'  '+${course.teacher}+
@@ -139,16 +140,19 @@ ul li.checked::before {
 											' - Fee:  '+ ${course.fee} + ' €'+
 											'  Dates: [' +${#dates.format(course.initDate, 'dd-MM-yyyy')}+
 											'-'  +${#dates.format(course.finishDate, 'dd-MM-yyyy')} + '] '">
-											</option>
+										</option>
 									</select>
 								</div>
-								<br> 
+								<br>
 								<hr>
-							
-									<div th:if="${message}">
-										<p th:text="${message}"></p>
-									</div>	
-								
+								<div th:if="${message}"
+									class="w3-panel w3-pale-green w3-center w3-display-container">
+									<span onclick="this.parentElement.style.display='none'"
+										class="w3-button w3-pale-green w3-large w3-display-topright">x</span>
+									<p th:text="${message}"></p>
+								</div>
+
+
 							</div>
 							<button type="submit"
 								class="w3-button w3-block w3-gray w3-center">+ Add</button>

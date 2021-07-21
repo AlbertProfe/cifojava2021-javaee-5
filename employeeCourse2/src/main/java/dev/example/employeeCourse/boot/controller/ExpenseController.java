@@ -137,10 +137,8 @@ import dev.example.employeeCourse.boot.repository.ExpenseRepository;
 
 		public Optional<Expense> findOneExpenseById(int id) {
 
-			// System.out.println("inside findEmployee" + id);
 			Optional<Expense> expenseFound = expenseRepository.findById(id);
-			// System.out.println("finishing findEmployee" + id);
-			// System.out.println("finishing findEmployee" + employeeFound.get());
+			
 			return expenseFound;
 		}
 		
