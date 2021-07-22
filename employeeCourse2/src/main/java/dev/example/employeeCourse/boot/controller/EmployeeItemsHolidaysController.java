@@ -131,6 +131,7 @@ public class EmployeeItemsHolidaysController {
 			RedirectAttributes redirectAttributes) throws ParseException {
 
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat formatToMessage = new SimpleDateFormat("dd-MMM");
 		  
 		Optional<Holidays> holidaysFound = findOneHolidaysById(id);
 		
@@ -147,7 +148,7 @@ public class EmployeeItemsHolidaysController {
 				Date newDateToRemove = format.parse(dateToRemove);
 				holidaysFound.get().removeHolidays(newDateToRemove);
 				
-				datesDeletedToMessage.add(format.format(newDateToRemove));
+				datesDeletedToMessage.add(formatToMessage.format(newDateToRemove));
 
 			}
 
