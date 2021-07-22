@@ -1,6 +1,10 @@
 
 package dev.example.employeeCourse.boot.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,13 +55,15 @@ public class EmployeeItemsHolidaysController {
 	
 	@Autowired
 	HolidaysRepository holidaysRepository;
+
 	
 	
-	// ------------------------------------------------------------------------------------
-	// ----------------------- Holidays Update dates --------------------------------------------
-	// ------------------------------------------------------------------------------------
-	@RequestMapping("/updateHolidays")
-	public String detailHolidaysEmployee(int id, Model model) {
+	
+	//-----------------------------------------------------------------------------
+	// ----------------------- add Holidays  ----------------------------------
+	// ------------------------------------------------------------- ----------
+	@RequestMapping("/addHolidays")
+	public String addHolidaysEmployee(int id, Model model) {
 
 		Optional<Holidays> holidaysFound = findOneHolidaysById(id);
 
@@ -65,10 +71,59 @@ public class EmployeeItemsHolidaysController {
 
 			model.addAttribute("employeefromController", holidaysFound.get().getEmployee());
 			model.addAttribute("holidays", holidaysFound.get());
+			       
+			return "employeeitems/addholidaysemployee";
+		}
+
+		else
+			return "home/notfound.html";
+	}
+	 
+	@PostMapping("/insertOneHolidaysDate")
+	public String insertOneHolidaysDate(Model boxToView, @RequestParam String date, @RequestParam int id,
+			RedirectAttributes redirectAttributes) throws ParseException {
+		
+		//System.out.println(id + "  " + date);
+		Optional<Holidays> holidaysFound = findOneHolidaysById(id);
+
+		if (holidaysFound.isPresent()) {
+
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date newdate = format.parse(date);
 			
+			//System.out.println(newdate);
+			holidaysFound.get().addHolidays(newdate);
 
+			
+			holidaysRepository.save(holidaysFound.get());
 
-			return "employeeitems/updateholidaysemployee";
+			redirectAttributes.addFlashAttribute("message",
+					"You successfully create an hoolidays date! The date added is " + newdate);
+
+			return "redirect:/employee/items/holidays/addHolidays?id=" + id;
+
+		} else
+			return "home/notfound.html";
+
+	}
+	  
+	 
+	
+	
+	// ------------------------------------------------------------------------------------
+	// ----------------------- Holidays Update dates --------------------------------------------
+	// ------------------------------------------------------------------------------------
+	@RequestMapping("/deleteHolidays")
+	public String deleteHolidaysEmployee(int id, Model model) {
+
+		Optional<Holidays> holidaysFound = findOneHolidaysById(id);
+
+		if (holidaysFound.isPresent()) {
+
+			model.addAttribute("employeefromController", holidaysFound.get().getEmployee());
+			model.addAttribute("holidays", holidaysFound.get());
+		
+			return "employeeitems/deleteholidaysemployee";
 		}
 
 		else
@@ -76,8 +131,8 @@ public class EmployeeItemsHolidaysController {
 	}
 	
 
-	@RequestMapping(value = "/insertHolidays", method = RequestMethod.POST)
-	public String insertHolidays(@Validated Expense expense, Model boxToView, @RequestParam("employeeId") int id,
+	@RequestMapping(value = "/removeOneHolidaysDate", method = RequestMethod.POST)
+	public String removeOneHolidaysDate(@Validated Expense expense, Model boxToView, @RequestParam("employeeId") int id,
 			RedirectAttributes redirectAttributes) {
 
 		Optional<Employee> foundEmployee = employeeRepository.findById(id);
@@ -101,84 +156,8 @@ public class EmployeeItemsHolidaysController {
 
 	}
 
-	/*
-	 * //
-	 * -----------------------------------------------------------------------------
-	 * ---------- // ----------------------- delete expense with Employee //
-	 * ---------------------------------- //
-	 * -----------------------------------------------------------------------------
-	 * ----------
-	 * 
-	 * @RequestMapping("/deleteExpense") public String removeExpense(int id, Model
-	 * boxToView, RedirectAttributes redirectAttributes) {
-	 * 
-	 * Optional<Expense> expenseFound = findOneExpenseById(id);
-	 * 
-	 * if (expenseFound.isPresent()) {
-	 * 
-	 * expenseRepository.deleteById(expenseFound.get().getId());
-	 * 
-	 * redirectAttributes.addFlashAttribute("message",
-	 * "You successfully deleted an expense, id: " + expenseFound.get().getId() +
-	 * " - " + expenseFound.get().getName() + " - " + expenseFound.get().getValue()
-	 * + " for " + expenseFound.get().getEmployee().getName() + " " +
-	 * expenseFound.get().getEmployee().getSurname() + "!");
-	 * 
-	 * return "redirect:/employee/items/detailEmployee?id=" +
-	 * expenseFound.get().getEmployee().getId();
-	 * 
-	 * } else return "home/notfound.html"; }
-	 * 
-	 * //
-	 * -----------------------------------------------------------------------------
-	 * ---------- // ----------------------- update expense with Employee //
-	 * ---------------------------------- //
-	 * -----------------------------------------------------------------------------
-	 * ----------
-	 * 
-	 * @RequestMapping("/updateExpense") public String updateExpenseEmployee(int id,
-	 * Model model) {
-	 * 
-	 * // System.out.println(id);
-	 * 
-	 * Optional<Expense> expenseFound = findOneExpenseById(id);
-	 * 
-	 * if (expenseFound.isPresent()) {
-	 * 
-	 * model.addAttribute("employeefromController",
-	 * expenseFound.get().getEmployee()); model.addAttribute("expense",
-	 * expenseFound.get());
-	 * 
-	 * return "employeeitems/updateexpenseemployee"; }
-	 * 
-	 * else return "home/notfound.html"; }
-	 * 
-	 * @PostMapping("/insertExpense/{idExpense}") public String
-	 * replaceCourseEmployee(@PathVariable("idExpense") int id, Expense expense,
-	 * RedirectAttributes redirectAttributes, Model model) {
-	 * 
-	 * System.out.println(id);
-	 * 
-	 * Optional<Expense> expenseFound = findOneExpenseById(id);
-	 * 
-	 * if (expenseFound.isPresent()) {
-	 * 
-	 * model.addAttribute("employeefromController",
-	 * expenseFound.get().getEmployee());
-	 * expenseFound.get().setName(expense.getName());
-	 * expenseFound.get().setValue(expense.getValue());
-	 * 
-	 * expenseRepository.save(expenseFound.get());
-	 * 
-	 * redirectAttributes.addFlashAttribute("message",
-	 * "You successfully updated that expense!");
-	 * 
-	 * return "redirect:/employee/items/expense/updateExpense?id=" + id;
-	 * 
-	 * } else return "home/notfound.html";
-	 * 
-	 * }
-	 */
+	
+ 
 
 	// -------------------------------------------------------------------------------
 	// ------------------------- service to controller--------------------------------

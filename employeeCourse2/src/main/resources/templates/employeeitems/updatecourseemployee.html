@@ -166,12 +166,12 @@ ul li.checked::before {
 									<p>
 										<label class="w3-text-gray"><b>Status</b></label> <input
 											class="w3-input w3-border w3-light-grey" name="status"
-											type="text" required>
+											type="text" th:value="${enrollment.status}"  required>
 									</p>
 
 									<p>
 										<label class="w3-text-gray"><b>Approved</b></label> <input
-											class="w3-input w3-border w3-light-grey" name="approved">
+											class="w3-input w3-border w3-light-grey" name="approved" th:value="${enrollment.approved}" >
 									</p>
 								</div>
 								<br>

@@ -120,11 +120,11 @@ ul li.checked::before {
 						<!-- Update status  -->
 						<div class="w3-card-4">
 							<header class="w3-container w3-light-grey">
-								<h3>Update Holidays Dates</h3>
+								<h3>Delete Holidays Dates</h3>
 
 							</header>
 							<div class="w3-container">
-								<p>Update holidays dates</p>
+								<p>Delete holidays dates</p>
 								<p></p>
 								<hr>
 								<span class="w3-large"
@@ -138,22 +138,22 @@ ul li.checked::before {
 								<span style="font-weight: bold"
 									th:text="${holidays.officialYearHolidaysQty}"></span> <br>
 								<span
-									th:with="result=${holidays.officialYearHolidaysQty - holidays.daysHolidaysQty}">
+									th:with="result=${holidays.daysHolidaysQty - holidays.officialYearHolidaysQty}">
 									<span style="color: red"
-									th:text="${'Holidays left: ' + result}"></span>
+									th:text="${'Holidays balance: ' + result}"></span>
 								</span>
 								<p th:text="${ 'Holidays dates:'}"></p>
 
-								<div class="w3-card-4" th:each="hol:${holidays.daysHolidays}" style="width:50%; margin: 0 auto;">
-									<div class="w3-container">
+								<div class="w3-card-4" th:each="hol:${holidays.daysHolidays}" style="width:35%; margin: 0 auto;">
+									<div class="w3-container w3-margin">
 									<span
 											onclick="this.parentElement.style.display='none'"
 											class="w3-bar-item w3-button w3-small w3-right">×</span>
 										<span
 											th:text=" '(' + ${holStat.count} + ') ' 
-												+${#dates.format(hol,'dd-MMM')} + '  ' ">
+												+${#dates.format(hol,'dd-MMM')}">
 											
-										</span> <a 	class="w3-button w3-small w3-teal w3-center ">Update
+										</span> <a 	class="w3-button w3-small w3-red w3-center ">Delete
 											date</a>
 									</div>
 								</div>

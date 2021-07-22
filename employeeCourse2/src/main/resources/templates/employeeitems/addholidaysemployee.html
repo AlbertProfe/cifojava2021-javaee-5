@@ -54,7 +54,7 @@ ul li.checked::before {
 			style="max-width: 1600px; margin-top: 50px">
 
 			<!-- Form -->
-			<form th:action="@{/employee/insertCourse(id=${employee.id})}"	method="post">
+			<form th:action="@{~/employee/items/holidays/insertOneHolidaysDate(id=${holidays.id})}"	method="post">
 
 				<!-- The Grid -->
 				<div class="w3-row">
@@ -90,20 +90,21 @@ ul li.checked::before {
 									<hr>
 									<div class="w3-container w3-center">
 
-										<a th:href="@{deleteEmployee(id=${employee.id})}"
-											class="w3-button w3-red w3-center">Delete</a> <a
-											th:href="@{updateEmployee(id=${employee.id})}"
-											class="w3-button w3-blue">Update</a>
-											<a
-											th:href="@{addImageEmployee(id=${employee.id})}"
-											class="w3-button w3-blue-gray">+ Add Image</a>
+										<a th:href="@{~/employee/deleteEmployee(id=${employee.id})}"
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{~/employee/updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> <a
+												th:href="@{~/employee/items/addImageEmployee(id=${employee.id})}"
+												class="w3-button w3-blue-gray">+ Add Image</a>
 
 
-										<hr>
+											<hr>
+										</div>
+
 									</div>
-								
-								</div>
-								<a class="w3-button w3-block w3-dark-grey" th:href="@{allEmployees}"> All Employees</a>
+									<a class="w3-button w3-block w3-dark-grey"
+										th:href="@{~/employee/items/detailEmployee(id=${employee.id})}">
+										Detail Employee</a>
 							</div>
 							</div>
 						</div>
@@ -114,7 +115,7 @@ ul li.checked::before {
 					<!-- Right Column Course to Employee -->
 					<div class="w3-col m8">
 						<!-- Select Course to Employee by Id  -->
-						<div class="w3-card-4" th:object="${course}">
+						<div class="w3-card-4" th:object="${holidays}">
 							<header class="w3-container w3-light-grey">
 								<h3>+ Add Holidays</h3>
 
@@ -123,22 +124,44 @@ ul li.checked::before {
 								<p>Create Holidays</p>
 								<p></p>
 								<hr>
-								<div class="w3-dropdown-hover w3-center">
+								
+									<div class="w3-container">
 									
-								</div>
-								<br> 
+									<p>
+									<label class="w3-text-gray"><b>Holidays id</b></label> 
+										<label class="w3-text-black" th:text="${holidays.id}"><b>Holidays id</b></label> 
+										
+									</p>
+									<p>
+									<label class="w3-text-gray" ><b>Year</b></label> 
+										<label class="w3-text-black" th:text="${holidays.year}"><b>Year</b></label> 
+										
+									</p>
+									
+									
+									<p>
+										<label class="w3-text-gray"><b>Date</b></label> <input
+											class="w3-input w3-border w3-light-grey" name="date"
+											 type="date" required>
+									</p>
+
+							<br> 
 								<hr>
 							
-									<div th:if="${message}">
-										<p th:text="${message}"></p>
-									</div>	
+									<div th:if="${message}"
+								class="w3-panel w3-pale-green w3-center w3-display-container">
+								<span onclick="this.parentElement.style.display='none'"
+									class="w3-button ww3-pale-green w3-large w3-display-topright">x</span>
+								<p th:text="${message}"></p>
+							</div>
 								
 							</div>
-							<button type="submit"
-								class="w3-button w3-block w3-gray w3-center">+ Add</button>
+							
 
 						</div>
-						<br>
+						<button type="submit"
+								class="w3-button w3-block w3-gray w3-center">+ Add</button>
+						
 					</div>
 					<!-- End Right Column -->
 

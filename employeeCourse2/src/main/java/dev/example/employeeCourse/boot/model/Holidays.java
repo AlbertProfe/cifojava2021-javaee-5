@@ -40,10 +40,7 @@ public class Holidays {
 		super();
 		this.year = year;
 		this.officialYearHolidaysQty = officialYearHolidaysQty;
-		
-		
 	}
-	
 	
 	public int getId() {
 		return id;
@@ -65,6 +62,7 @@ public class Holidays {
 	public void addHolidays(Date dateToAdd) {
 		this.getDaysHolidays().add(dateToAdd);
 		this.setDaysHolidaysQty();
+		this.getDaysHolidays().sort(null);
 	}
 	public int getDaysHolidaysQty() {
 		return daysHolidaysQty;

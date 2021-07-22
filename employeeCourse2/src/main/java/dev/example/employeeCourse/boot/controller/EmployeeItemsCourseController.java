@@ -120,19 +120,23 @@ public class EmployeeItemsCourseController {
 	@PostMapping("/replaceEmployeeCourse/{idEnrollment}")
 	public String replaceCourseEmployee(@PathVariable("idEnrollment") int id, Enrollment enrollment, RedirectAttributes redirectAttributes) {
 
-		System.out.println( id);
+		//System.out.println( id);
 		
 		Optional<Enrollment> enrollmentFound = findOneEnrollmentById(id);
 
 		if (enrollmentFound.isPresent()) {
-
-			enrollmentFound.get().setStatus(enrollment.getStatus());
-			enrollmentFound.get().setApproved(enrollment.isApproved());
-
+			
+			if (!enrollmentFound.get().getStatus().equals(enrollment.getStatus()))
+				enrollmentFound.get().setStatus(enrollment.getStatus());
+			
+			if (enrollmentFound.get().isApproved() != enrollment.isApproved())
+				enrollmentFound.get().setApproved(enrollment.isApproved());
+			
 			enrollmentRepository.save(enrollmentFound.get());
 			
 			redirectAttributes.addFlashAttribute("message",
-					"You successfully updated that enrollment !");
+					"You successfully updated that enrollment! id: " + enrollmentFound.get().getId() +
+					", status: " + enrollmentFound.get().getStatus() + ", approved: " + enrollmentFound.get().isApproved());
 
 			return "redirect:/employee/items/course/updateEmployeeCourse?id=" + id;
 			

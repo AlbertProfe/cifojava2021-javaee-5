@@ -148,19 +148,28 @@ public class EmployeeItemsExpenseController {
 	public String replaceCourseEmployee(@PathVariable("idExpense") int id, Expense expense,
 			RedirectAttributes redirectAttributes, Model model) {
 
-		System.out.println(id);
+		//System.out.println(id+ "- "+ expense);
 
 		Optional<Expense> expenseFound = findOneExpenseById(id);
 
 		if (expenseFound.isPresent()) {
 			
 			model.addAttribute("employeefromController", expenseFound.get().getEmployee());
-			expenseFound.get().setName(expense.getName());
-			expenseFound.get().setValue(expense.getValue());
-
+			
+			if (!expenseFound.get().getName().equals(expense.getName()))
+				expenseFound.get().setName(expense.getName());
+			
+			if (expenseFound.get().getValue() != expense.getValue())
+				expenseFound.get().setValue(expense.getValue());
+			
+			if (expense.getDate() != null )
+				expenseFound.get().setDate(expense.getDate());
+			
+		
 			expenseRepository.save(expenseFound.get());
 
-			redirectAttributes.addFlashAttribute("message", "You successfully updated that expense!");
+			redirectAttributes.addFlashAttribute("message", "You successfully updated that expense! "
+					+ expenseFound.get().getName() +" - " +  expenseFound.get().getDate() +" - " +  expenseFound.get().getValue());
 
 			return "redirect:/employee/items/expense/updateExpense?id=" + id;
 

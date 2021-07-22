@@ -136,9 +136,13 @@ ul li.checked::before {
 								</p>
 
 								<p>
-									<label class="w3-text-gray"><b>Date</b></label> <input
+									<label class="w3-text-gray"><b>Date</b></label> 
+									<label class="w3-text-black" th:text="${#dates.format(expense.date,'dd-MM-yyyy')} "></label> 
+									<input
 										class="w3-input w3-border w3-light-grey" name="date"
-										th:value="${#dates.format( expense.date, 'dd-MM-yyyy')}" type="date" >
+										th:value="${#dates.format(expense.date,'dd-MM-yyyy')}" type="date" >
+										
+										 
 								</p>
 
 								<p>

@@ -211,16 +211,19 @@
 													th:text="${'id expense EXPE-E-'+ expense.id}"></span><br>
 
 												<span style="color: blue" th:text="${expense.name}"></span>
-												<span th:text="${' Expense date: '+ expense.date}"></span> <br>
-												<span style="font-weight: bold"
+												<span
+													th:text="${' Expense date: '+ #dates.format(expense.date,'dd-MM-YYYY')}"></span>
+												<br> <span style="font-weight: bold"
 													th:text="${' value: '+ expense.value + ' €'}"></span><br>
 												<br> <a
-													th:href="@{~/employee/items/expense/updateExpense(id=${expense.id})}"
-													class="w3-button w3-small w3-blue w3-left">Update
-													Expense</a> <a
 													th:href="@{~/employee/items/expense/deleteExpense(id=${expense.id})}"
 													class="w3-button w3-small w3-red w3-left">Delete
+													Expense</a> <a
+													th:href="@{~/employee/items/expense/updateExpense(id=${expense.id})}"
+													class="w3-button w3-small w3-blue w3-left">Update
 													Expense</a>
+
+
 											</div></li>
 									</ul>
 
@@ -278,22 +281,28 @@
 												<span
 													th:text="${'Total holidays in '+ holidays.year +  ' maximun: '}"></span>
 												<span style="font-weight: bold"
-													th:text="${holidays.officialYearHolidaysQty}"></span> <br> <span
-													th:with="result=${holidays.officialYearHolidaysQty - holidays.daysHolidaysQty}"> <span
-													style="color: red" th:text="${'Holidays left: ' + result}"></span>
-												</span>
-												<span class="w3-panel w3-ligth-blue" th:text="${ 'Holidays dates:'}"></span>
-												<span  th:each="hol:${holidays.daysHolidays}" th:text=" '(' + ${holStat.count} + ') ' 
+													th:text="${holidays.officialYearHolidaysQty}"></span> <br>
+												<span
+													th:with="result=${holidays.officialYearHolidaysQty - holidays.daysHolidaysQty}">
+													<span style="color: red"
+													th:text="${'Holidays left: ' + result}"></span>
+												</span> <span class="w3-panel w3-ligth-blue"
+													th:text="${ 'Holidays dates:'}"></span> <span
+													th:each="hol:${holidays.daysHolidays}"
+													th:text=" '(' + ${holStat.count} + ') ' 
 												+${#dates.format(hol,'dd-MMM')} + '  ' ">
 
-												</span><br><br>
+												</span><br>
+												<br>
 												<!-- <span onclick="toggleShowHide()"
 													class="w3-bar-item w3-button w3-small w3-left">+</span> <span
 													id="Dates" class="w3-hide"
 													th:text="${ 'Holidays dates: ' + holidays.daysHolidays}"></span><br> -->
 
-												<a th:href="@{holidays/updateHolidays(id=${holidays.id})}"
-													class="w3-button w3-small w3-blue">Update Holidays Dates</a>
+												<a th:href="@{holidays/deleteHolidays(id=${holidays.id})}"
+													class="w3-button w3-small w3-red">Delete Holidays Dates</a>
+												<a th:href="@{holidays/addHolidays(id=${holidays.id})}"
+													class="w3-button w3-small w3-blue">+ Add Holidays Date</a>
 											</div></li>
 									</ul>
 								</div>
