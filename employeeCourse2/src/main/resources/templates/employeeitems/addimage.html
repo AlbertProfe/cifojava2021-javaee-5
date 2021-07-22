@@ -62,6 +62,7 @@ ul li.checked::before {
 				<div class="w3-row">
 
 					<!-- Left Column Employee Detail-->
+					<!-- Left Column Employee Detail-->
 					<div class="w3-col m4">
 						<div class="w3-row-padding">
 							<div class="w3-col m12">
@@ -69,7 +70,7 @@ ul li.checked::before {
 								<div class="w3-card-4">
 									<header class="w3-container w3-light-grey">
 										<h3
-											th:text="${employee.id} + ' ' + ${employee.name} + ' ' + ${employee.surname}"></h3>
+											th:text="${employee.id} + ' ' +${employee.name} + ' ' + ${employee.surname}"></h3>
 
 									</header>
 									<div class="w3-container">
@@ -77,28 +78,35 @@ ul li.checked::before {
 										<p></p>
 										<hr>
 										<img
-											src="http://localhost:8086/getEmployeeImage/?id=60e7f89214a7dc49c4618461"
+											src="http://localhost:8086/getEmployeeImage/?id=60f7cb2d579562673d1eb417"
 											alt="Avatar" class="w3-left w3-circle w3-margin-right"
 											style="width: 60px">
-										<p>CEO at Mighty Schools. Marketing and Advertising.
-											Seeking a new job and new opportunities.</p>
+										<p th:text="${employee.job}"></p>
+										<p th:text="${employee.position}"></p>
 										<br>
-										<p th:text="${employee.email}"></p>
+										<p th:text="${employee.address}"></p>
+										<p th:text="${employee.phoneNumber}"></p>
 										<p th:text="${employee.age}"></p>
+										<p th:text="${employee.email}"></p>
+
 										<p th:text="${employee.monthSalary}"></p>
 										<p th:text="${employee.password}"></p>
 										<hr>
 										<div class="w3-container w3-center">
 
 											<a th:href="@{~/employee/deleteEmployee(id=${employee.id})}"
-											class="w3-button w3-red w3-center">Delete</a> <a
-											th:href="@{~/employee/updateEmployee(id=${employee.id})}"
-											class="w3-button w3-blue">Update</a> 
+												class="w3-button w3-red w3-center">Delete</a> <a
+												th:href="@{~/employee/updateEmployee(id=${employee.id})}"
+												class="w3-button w3-blue">Update</a> 
+
+
 											<hr>
 										</div>
-									</div>
 
-										<a class="w3-button w3-block w3-dark-grey" th:href="@{detailEmployee(id=${employee.id})}"> Detail Employee</a>
+									</div>
+									<a class="w3-button w3-block w3-dark-grey"
+										th:href="@{~/employee/items/detailEmployee(id=${employee.id})}">
+										Detail Employee</a>
 								</div>
 							</div>
 						</div>

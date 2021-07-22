@@ -64,6 +64,14 @@ public class Holidays {
 		this.setDaysHolidaysQty();
 		this.getDaysHolidays().sort(null);
 	}
+	
+	public void removeHolidays(Date dateToRemove) {
+		this.getDaysHolidays().remove(dateToRemove);
+		this.setDaysHolidaysQty();
+		this.getDaysHolidays().sort(null);
+	}
+	
+	
 	public int getDaysHolidaysQty() {
 		return daysHolidaysQty;
 	}

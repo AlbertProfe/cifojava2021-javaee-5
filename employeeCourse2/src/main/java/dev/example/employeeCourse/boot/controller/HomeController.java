@@ -2,7 +2,7 @@ package dev.example.employeeCourse.boot.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +84,7 @@ public class HomeController {
 		int countExpenseid = 1;
 		int countHolidaysid = 1;
 		int year = 2019;
+		
 
 		while (count <= qtyToCreate) {
 
@@ -135,7 +136,7 @@ public class HomeController {
 				countDatesToAdd = 1;
 				while (countDatesToAdd < faker.number().numberBetween(24, 54)) {
 					holidaysRepository.findById(countHolidaysid).get().addHolidays(
-							new Date(year, faker.number().numberBetween(01, 12), faker.number().numberBetween(01, 31)));
+							new GregorianCalendar(year, faker.number().numberBetween(01, 12), faker.number().numberBetween(01, 31)).getTime() );
 					countDatesToAdd++;
 				}
 
