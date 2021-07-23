@@ -81,11 +81,12 @@ public class HomeController {
 		int count = 1;
 		int intRandom;
 		int intRandom2;
-		int countExpenseid = 1;
-		int countHolidaysid = 1;
-		int year = 2019;
-		
 
+		int year = 2019;
+		int employeecount = 1;
+		int coursecount = 1;
+
+		// we create so many entities as qtyToCreate says ....
 		while (count <= qtyToCreate) {
 
 			stringRandom1 = alphabetChars.charAt(createIntRandom(alphabetChars.length()));
@@ -94,11 +95,7 @@ public class HomeController {
 			intRandom = createIntRandom(max);
 			intRandom2 = createIntRandom(max * 10);
 
-			/*
-			 * boolean randomPublished; if ((intRandom % 2) == 0) { randomPublished = true;
-			 * } else { randomPublished = false; }
-			 */
-//
+			// first at all we create qtyToCreate EMPLOYEES
 			employeeRepository
 					.save(new Employee(faker.name().firstName(), faker.name().lastName(),
 							faker.number().numberBetween(16, 65), faker.name().firstName() + "@java.com",
@@ -108,72 +105,94 @@ public class HomeController {
 							faker.job().title(), faker.job().position(), faker.phoneNumber().cellPhone(),
 							faker.address().fullAddress()));
 
+			// second we create qtyToCreate CERTIFICATES
 			certificateRepository
 					.save(new Certificate(faker.programmingLanguage().name(), faker.programmingLanguage().creator(),
 							faker.number().numberBetween(100, 800), faker.number().numberBetween(1, 8), true));
 
+			// third we create qtyToCreate COURSES
 			courseRepository.save(new Course("room_" + faker.number().numberBetween(45, 108) + "B", false,
 					faker.date().birthday(0, 3), faker.date().birthday(0, 3), "mornings",
 					faker.number().randomDouble(2, 1550, 20000),
 					faker.name().firstName() + " " + faker.name().lastName()));
 
-			int countExpense = 0;
-			while (countExpense < 10) {
-				expenseRepository.save(new Expense(faker.beer().name(), faker.date().birthday(0, 3),
-						faker.number().randomDouble(2, 50, 2000)));
-				expenseRepository.findById(countExpenseid).get().setEmployee(employeeRepository.findById(count).get());
-				countExpense++;
-				countExpenseid++;
-			}
-
 			certificateRepository.findById(count).get().adCourse(courseRepository.findById(count).get());
 
-			year = 2019;
-			int countHolidays = 1;
-			int countDatesToAdd = 1;
-			while (countHolidays <= 3) {
-				holidaysRepository.save(new Holidays(year, faker.number().numberBetween(28, 34)));
-				countDatesToAdd = 1;
-				while (countDatesToAdd < faker.number().numberBetween(24, 54)) {
-					holidaysRepository.findById(countHolidaysid).get().addHolidays(
-							new GregorianCalendar(year, faker.number().numberBetween(01, 12), faker.number().numberBetween(01, 31)).getTime() );
-					countDatesToAdd++;
-				}
-
-				holidaysRepository.findById(countHolidaysid).get()
-						.setEmployee(employeeRepository.findById(count).get());
-				countHolidays++;
-				countHolidaysid++;
-				year++;
-			}
-
 			count++;
-
 		}
 
+		// fourth we create qtyToCreate EXPENSES *10 and assign them to each EMPLOYEE
+		int countExpense = 1;
+		int countExpenseid = 1;
+		employeecount = (int) (employeeRepository.count() - qtyToCreate + 1);
 		count = 1;
 		while (count <= qtyToCreate) {
-			enrollmentRepository.save(
-					new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10), true, "FINISHED",
-							employeeRepository.findById(count).get(), courseRepository.findById(count).get()));
+			countExpense = 1;
+			while (countExpense <= 10) {
+				expenseRepository.save(new Expense(faker.beer().name(), faker.date().birthday(0, 3),
+						faker.number().randomDouble(2, 50, 2000)));
+				expenseRepository.findById(countExpenseid).get()
+						.setEmployee(employeeRepository.findById(employeecount).get());
+				countExpense++;
+				countExpenseid++;
+				employeecount++;
+			}
+			count++;
+		}
+
+		// fifth we create qtyToCreate HOLIDAYS * 3 (year 2019, 2020 and 2021) and
+		// assign them to EMPLOYEE
+		// and within the year we create between 24 and 54 dates for each year
+		year = 2019;
+		int countHolidays = 1;
+		int countDatesToAdd = 1;
+		int countHolidaysid = 1;
+		employeecount = (int) (employeeRepository.count() - qtyToCreate + 1);
+		while (countHolidays <= 3) {
+			holidaysRepository.save(new Holidays(year, faker.number().numberBetween(28, 34)));
+			countDatesToAdd = 1;
+			while (countDatesToAdd < faker.number().numberBetween(24, 54)) {
+				holidaysRepository.findById(countHolidaysid).get().addHolidays(new GregorianCalendar(year,
+						faker.number().numberBetween(01, 12), faker.number().numberBetween(01, 31)).getTime());
+				countDatesToAdd++;
+			}
+
+			holidaysRepository.findById(countHolidaysid).get()
+					.setEmployee(employeeRepository.findById(employeecount).get());
+			countHolidays++;
+			countHolidaysid++;
+			year++;
+			employeecount++;
+		}
+
+		// sixth we create qtyToCreate ENROLLMENTS * 3 (three courses per employee) and
+		// assign them to EMPLOYEE
+		count = 1;
+		employeecount = (int) (employeeRepository.count() - qtyToCreate + 1);
+		coursecount = 1;
+		while (count <= qtyToCreate) {
+			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
+					true, "FINISHED", employeeRepository.findById(employeecount).get(),
+					courseRepository.findById(coursecount).get()));
+
+			if (count == (qtyToCreate - 1))
+				coursecount = 1;
+			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
+					true, "IN-PROGRESS", employeeRepository.findById(employeecount).get(),
+					courseRepository.findById(coursecount + 1).isPresent()
+							? courseRepository.findById(coursecount + 1).get()
+							: null));
 
 			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
-					true, "IN-PROGRESS", employeeRepository.findById(count).get(),
-					courseRepository.findById(count + 1).isPresent() ? courseRepository.findById(count + 1).get()
-							: null));
-			enrollmentRepository.save(new Enrollment(faker.date().birthday(0, 3), faker.number().numberBetween(7, 10),
-					true, "TO-START", employeeRepository.findById(count).get(),
-					courseRepository.findById(count + 2).isPresent() ? courseRepository.findById(count + 2).get()
+					true, "TO-START", employeeRepository.findById(employeecount).get(),
+					courseRepository.findById(coursecount + 2).isPresent()
+							? courseRepository.findById(coursecount + 2).get()
 							: null));
 			count++;
+			coursecount++;
+			employeecount++;
 
 		}
-		// we need to delete the last enrollment because the assign course (id) doesn't
-		// exist and it will be null
-		// enrollmentRepository.deleteById((qtyToCreate-1)*3);
-		// we need to delete the last course because the assign certificate (id) doesn't
-		// exist and it will be null
-		// courseRepository.deleteById(qtyToCreate);
 
 		return "redirect:/employee/allEmployees";
 	}
@@ -185,16 +204,11 @@ public class HomeController {
 		String pattern = "yyyy-MM-dd HH:mm:ssZ";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		model.addAttribute("serverTime", simpleDateFormat.format(new Date()));
-		model.addAttribute("kingsley_variable", 15445);
-		model.addAttribute("borja_test", "lo conseguire, any doubt?");
-		model.addAttribute("smoker", true);
 
 		return "home/notFound";
 	}
 
-	// -------------------------------------------------------------------------
 	// ------------------ service to homeController -----------------------------
-	// ---------------------------------------------------------------------------
 	public static int createIntRandom(int top) {
 
 		Random rand = new Random();
