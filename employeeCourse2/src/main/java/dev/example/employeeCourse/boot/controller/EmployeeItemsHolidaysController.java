@@ -58,6 +58,51 @@ public class EmployeeItemsHolidaysController {
 	@Autowired
 	HolidaysRepository holidaysRepository;
 
+
+	// -----------------------------------------------------------------------------
+	// ----------------------- add Holidays Object year ----------------------------------
+	// ------------------------------------------------------------- ----------
+	@RequestMapping("/addHolidaysYear")
+	public String addHolidaysYearEmployee(int id, Model model) {
+
+		Optional<Employee> employeeFound = findOneEmployeeById(id);
+
+		if (employeeFound.isPresent()) {
+
+			model.addAttribute("employeefromController", employeeFound.get());
+
+			return "employeeitems/addholidaysyearemployee";
+		}
+
+		else
+			return "home/notfound.html";
+	}
+	
+	
+	@RequestMapping(value = "/insertOneHolidaysYear", method = RequestMethod.POST)
+	public String insertOneHolidaysYear( Holidays holidays,  @RequestParam("employeeId") int id,
+			RedirectAttributes redirectAttributes)  {
+
+		
+		Optional<Employee> employeeFound = findOneEmployeeById(id);
+
+		if (employeeFound.isPresent()) {
+
+			holidays.setEmployee(employeeFound.get());
+			holidaysRepository.save(holidays);
+			
+
+			redirectAttributes.addFlashAttribute("message",
+					"You successfully create an holidays "+  holidays.getYear() +   " + year! (id: "+ holidays.getId() + ")");
+
+			return "redirect:/employee/items/holidays/addHolidaysYear?id=" + id;
+
+		} else
+			return "home/notfound.html";
+
+	}
+	
+
 	// -----------------------------------------------------------------------------
 	// ----------------------- add Holidays ----------------------------------
 	// ------------------------------------------------------------- ----------
@@ -77,7 +122,7 @@ public class EmployeeItemsHolidaysController {
 		else
 			return "home/notfound.html";
 	}
-
+	
 	@PostMapping("/insertOneHolidaysDate")
 	public String insertOneHolidaysDate(Model boxToView, @RequestParam String date, @RequestParam int id,
 			RedirectAttributes redirectAttributes) throws ParseException {

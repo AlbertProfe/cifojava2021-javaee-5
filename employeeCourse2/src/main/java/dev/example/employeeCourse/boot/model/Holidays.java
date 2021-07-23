@@ -24,7 +24,7 @@ public class Holidays {
 	private int year;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@ElementCollection
-	private List<Date> daysHolidays = new ArrayList<Date>();
+	private List<Date> daysHolidays; 
 	private int daysHolidaysQty;
 	private int officialYearHolidaysQty;
 	
@@ -40,6 +40,7 @@ public class Holidays {
 		super();
 		this.year = year;
 		this.officialYearHolidaysQty = officialYearHolidaysQty;
+		this.daysHolidays = new ArrayList<Date>();
 	}
 	
 	public int getId() {

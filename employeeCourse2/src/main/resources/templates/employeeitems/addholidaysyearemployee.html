@@ -55,7 +55,7 @@ ul li.checked::before {
 
 			<!-- Form -->
 			<form
-				th:action="@{~/employee/items/holidays/insertOneHolidaysDate(id=${holidays.id})}"
+				th:action="@{/employee/items/holidays/insertOneHolidaysYear(employeeId=${employee.id})}"
 				method="post">
 
 				<!-- The Grid -->
@@ -115,37 +115,32 @@ ul li.checked::before {
 					<!-- End Left Column -->
 
 
-					<!-- Right Column Holidays to Employee -->
+					<!-- Right Column Holidays Year to Employee -->
 					<div class="w3-col m8">
-						<!-- Holidays dates to add  -->
-						<div class="w3-card-4" th:object="${holidays}">
+						<!-- Holidays Year to add  -->
+						<div class="w3-card-4"  th:object="${holidays}">
 							<header class="w3-container w3-light-grey">
-								<h3>+ Add Holidays</h3>
+								<h3>+ Add Holidays Year</h3>
 							</header>
 							<div class="w3-container">
-								<p>Create Holidays</p>
+								<p>Create Holidays Year</p>
 								<p></p>
 								<hr>
-
 								<div class="w3-container">
-
 									<p>
-										<label class="w3-text-gray"><b>Holidays id</b></label> <label
-											class="w3-text-black" th:text="${holidays.id}"><b>Holidays
-												id</b></label>
-
+										<label class="w3-text-gray"><b>employee id</b></label> <input
+											class="w3-input w3-border w3-light-grey" type="number"
+											name="employeeId" th:value="${employee.id}" readonly>
 									</p>
 									<p>
-										<label class="w3-text-gray"><b>Year</b></label> <label
-											class="w3-text-black" th:text="${holidays.year}"><b>Year</b></label>
-
+										<label class="w3-text-gray"><b>Year</b></label> <input
+											class="w3-input w3-border w3-light-grey" name="year" required></input>
 									</p>
 
-
 									<p>
-										<label class="w3-text-gray"><b>Date</b></label> <input
-											class="w3-input w3-border w3-light-grey" name="date"
-											type="date" required>
+										<label class="w3-text-gray"><b>Public Holidays
+												Quantity</b></label> <input class="w3-input w3-border w3-light-grey"
+											name="officialYearHolidaysQty"  required></input>
 									</p>
 
 									<br>
@@ -163,23 +158,24 @@ ul li.checked::before {
 
 							</div>
 							<button type="submit"
-								class="w3-button w3-block w3-gray w3-center">+ Add</button>
+								class="w3-button w3-block w3-gray w3-center">+ Add
+								Holidays Year</button>
 
 						</div>
-						<!-- End Holidays dates to add  -->
+						<!-- End Holidays Year to add  -->
 
 					</div>
 					<!-- End Right Column -->
 
 				</div>
 				<!-- End Grid -->
-			
+
 			</form>
 			<!-- End Form -->
-			
+
 		</div>
 		<!-- End Page Container -->
-		
+
 		<br> <br> <br>
 		<script type="text/javascript">
 			function addtolist(x) {

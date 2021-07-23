@@ -48,8 +48,7 @@ public class EmployeeItemsExpenseController {
 	ExpenseRepository expenseRepository;
 
 	// ------------------------------------------------------------------------------------
-	// ----------------------- add expense with Employee
-	// ----------------------------------
+	// ----------------------- add expense with Employee----------------------------------
 	// ------------------------------------------------------------------------------------
 	@RequestMapping("/addExpense")
 	public String addExpenseEmployee(int id, Model model) {
@@ -72,9 +71,11 @@ public class EmployeeItemsExpenseController {
 	}
 
 	@RequestMapping(value = "/insertExpense", method = RequestMethod.POST)
-	public String insertExpense(@Validated Expense expense, Model boxToView, @RequestParam("employeeId") int id,
+	public String insertExpense(@Validated Expense expense, @RequestParam("employeeId") int id,
 			RedirectAttributes redirectAttributes) {
-
+		
+		
+		System.out.println(id + " " + expense);
 		Optional<Employee> foundEmployee = employeeRepository.findById(id);
 
 		if (foundEmployee.isPresent()) {
@@ -96,10 +97,9 @@ public class EmployeeItemsExpenseController {
 
 	}
 
-	// ---------------------------------------------------------------------------------------
-	// ----------------------- delete expense with Employee
-	// ----------------------------------
-	// ---------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------
+	// ----------------------- delete expense with Employee -------------
+	// ------------------------------------------------------------------
 	@RequestMapping("/deleteExpense")
 	public String removeExpense(int id, Model boxToView, RedirectAttributes redirectAttributes) {
 
