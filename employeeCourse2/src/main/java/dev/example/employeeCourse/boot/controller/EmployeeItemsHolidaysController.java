@@ -58,9 +58,9 @@ public class EmployeeItemsHolidaysController {
 	@Autowired
 	HolidaysRepository holidaysRepository;
 
-
 	// -----------------------------------------------------------------------------
-	// ----------------------- add Holidays Object year ----------------------------------
+	// ----------------------- add Holidays Object year
+	// ----------------------------------
 	// ------------------------------------------------------------- ----------
 	@RequestMapping("/addHolidaysYear")
 	public String addHolidaysYearEmployee(int id, Model model) {
@@ -77,23 +77,34 @@ public class EmployeeItemsHolidaysController {
 		else
 			return "home/notfound.html";
 	}
-	
-	
-	@RequestMapping(value = "/insertOneHolidaysYear", method = RequestMethod.POST)
-	public String insertOneHolidaysYear( Holidays holidays,  @RequestParam("employeeId") int id,
-			RedirectAttributes redirectAttributes)  {
 
-		
+	@RequestMapping(value = "/insertOneHolidaysYear", method = RequestMethod.POST)
+	public String insertOneHolidaysYear(Holidays holidays, @RequestParam("employeeId") int id,
+			RedirectAttributes redirectAttributes) {
+
 		Optional<Employee> employeeFound = findOneEmployeeById(id);
 
 		if (employeeFound.isPresent()) {
 
 			holidays.setEmployee(employeeFound.get());
-			holidaysRepository.save(holidays);
-			
+			Optional<Iterable<Holidays>> holidaysFound = holidaysRepository
+					.findAllExpenseByEmployee(employeeFound.get());
 
-			redirectAttributes.addFlashAttribute("message",
-					"You successfully create an holidays "+  holidays.getYear() +   " + year! (id: "+ holidays.getId() + ")");
+			for (Holidays holidaysEmployee : holidaysFound.get()) {
+
+				if (holidays.getYear() == holidaysEmployee.getYear()) {
+
+					redirectAttributes.addFlashAttribute("messageYearFound",
+							"You can not create an holidays " + holidays.getYear() + " Holidays year! It already exists");
+
+					return "redirect:/employee/items/holidays/addHolidaysYear?id=" + id;
+					
+				} else {
+					holidaysRepository.save(holidays);
+					redirectAttributes.addFlashAttribute("message", "You successfully create an holidays "
+							+ holidays.getYear() + " + year! (id: " + holidays.getId() + ")");
+				}
+			}
 
 			return "redirect:/employee/items/holidays/addHolidaysYear?id=" + id;
 
@@ -101,7 +112,6 @@ public class EmployeeItemsHolidaysController {
 			return "home/notfound.html";
 
 	}
-	
 
 	// -----------------------------------------------------------------------------
 	// ----------------------- add Holidays ----------------------------------
@@ -122,7 +132,7 @@ public class EmployeeItemsHolidaysController {
 		else
 			return "home/notfound.html";
 	}
-	
+
 	@PostMapping("/insertOneHolidaysDate")
 	public String insertOneHolidaysDate(Model boxToView, @RequestParam String date, @RequestParam int id,
 			RedirectAttributes redirectAttributes) throws ParseException {
@@ -151,7 +161,8 @@ public class EmployeeItemsHolidaysController {
 	}
 
 	// ------------------------------------------------------------------------------------
-	// ----------------------- Holidays delete dates ---------------------------------------
+	// ----------------------- Holidays delete dates
+	// ---------------------------------------
 	// ------------------------------------------------------------------------------------
 	@RequestMapping("/deleteHolidays")
 	public String deleteHolidaysEmployee(int id, Model model) {
@@ -177,37 +188,35 @@ public class EmployeeItemsHolidaysController {
 
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat formatToMessage = new SimpleDateFormat("dd-MMM");
-		  
+
 		Optional<Holidays> holidaysFound = findOneHolidaysById(id);
-		
+
 		if (holidaysFound.isPresent()) {
 
 			// System.out.println(id + " " + datesHolidays);
 			model.addAttribute("employeefromController", holidaysFound.get().getEmployee());
-			
+
 			List<String> datesDeletedToMessage = new ArrayList<>();
-			
-			 
+
 			for (String dateToRemove : datesHolidays) {
-				
+
 				Date newDateToRemove = format.parse(dateToRemove);
 				holidaysFound.get().removeHolidays(newDateToRemove);
-				
+
 				datesDeletedToMessage.add(formatToMessage.format(newDateToRemove));
 
 			}
 
 			// System.out.println(expense); Expense expenseSaved =
 			holidaysRepository.save(holidaysFound.get());
-			
-			
+
 			model.addAttribute("holidays", holidaysFound.get());
-			
+
 			redirectAttributes.addFlashAttribute("message",
-					"You successfully delete some holidays dates from this holidays " + holidaysFound.get().getYear() +
-					" year (id: " + holidaysFound.get().getId() + ")");
+					"You successfully delete some holidays dates from this holidays " + holidaysFound.get().getYear()
+							+ " year (id: " + holidaysFound.get().getId() + ")");
 			redirectAttributes.addFlashAttribute("messageItemsDeleted",
-					 "Dates deleted ("+ datesHolidays.size() +"): " + datesDeletedToMessage);
+					"Dates deleted (" + datesHolidays.size() + "): " + datesDeletedToMessage);
 
 			return "redirect:/employee/items/holidays/deleteHolidays?id=" + id;
 
@@ -217,7 +226,8 @@ public class EmployeeItemsHolidaysController {
 	}
 
 	// -------------------------------------------------------------------------------
-	// ------------------------- service to controller--------------------------------
+	// ------------------------- service to
+	// controller--------------------------------
 	// -------------------------------------------------------------------------------
 
 	public Optional<Employee> findOneEmployeeById(int id) {

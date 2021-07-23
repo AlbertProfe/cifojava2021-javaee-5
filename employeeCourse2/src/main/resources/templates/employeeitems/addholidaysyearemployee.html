@@ -152,10 +152,14 @@ ul li.checked::before {
 											class="w3-button ww3-pale-green w3-large w3-display-topright">x</span>
 										<p th:text="${message}"></p>
 									</div>
-
+									
+									<div th:if="${messageYearFound}"
+										class="w3-panel w3-pale-red w3-center w3-display-container">
+										<span onclick="this.parentElement.style.display='none'"
+											class="w3-button ww3-pale-red w3-large w3-display-topright">x</span>
+										<p th:text="${messageYearFound}"></p>
+									</div>
 								</div>
-
-
 							</div>
 							<button type="submit"
 								class="w3-button w3-block w3-gray w3-center">+ Add

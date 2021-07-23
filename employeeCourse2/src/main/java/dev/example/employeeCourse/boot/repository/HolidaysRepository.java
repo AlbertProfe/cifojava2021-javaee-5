@@ -11,4 +11,6 @@ public interface HolidaysRepository extends CrudRepository<Holidays, Integer> {
 
 	Optional<Iterable<Holidays>> findAllHolidaysByEmployee(Employee employee);
 
+	Optional<Iterable<Holidays>> findAllExpenseByEmployee(Employee employee);
+
 }
