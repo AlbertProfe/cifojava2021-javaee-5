@@ -12,6 +12,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
+
+
 /* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child(odd) {
 	background: #f9f9f9;
@@ -157,13 +159,15 @@ ul li.checked::before {
 								<p th:text="${ 'Holidays dates to delete:'}"></p>
 
 								<th:block th:each="hol:${holidays.daysHolidays}">
-									<div class="w3-margin w3-padding-8 w3-border w3-pale-blue  "
-										style="display: inline">
+								
+									<div class="w3-card-4 w3-margin w3-padding-8 w3-light-grey"
+										style="display: inline-block">
 									
-										<input class="w3-check" type="checkbox" name="datesHolidays"
-											th:value="${hol}" /> <span class="w3-small"	th:text="${#dates.format(hol,'dd-MMM')}"></span>
+										<input class="w3-check w3-margin" type="checkbox" name="datesHolidays"
+											th:value="${hol}" /> <span class="w3-large w3-monospace w3-margin-right"	th:text="${#dates.format(hol,'dd-MMM')}"></span>
 
 									</div>
+									
 								</th:block>
 
 
