@@ -28,7 +28,7 @@
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
 					<hr>
-					<p style="font-weight: bold">How many employees do you want to
+					<p style="font-weight: bold">How many entities do you want to
 						create?</p>
 					<hr>
 
@@ -52,13 +52,7 @@
 						class="w3-button w3-teal">Create 10000 entities and registers
 						in BD</a>
 
-					<p>Delete all entities and registers in BD</p>
-
-					<a th:href="@{/employee/deleteAllEmployees}"
-						class="w3-button w3-red">Delete all entities and registers in
-						BD</a>
-					<p></p>
-					<p></p>
+					
 					<hr>
 					<span>(1) employees/expenses/holidays/courses and
 						certificates</span><br> <span>(2) with the enrollments
@@ -72,14 +66,62 @@
 			<!-- micro-dashboard -->
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
-					<p>Next to do: micro-dashboard</p>
+				<hr>
+					<p style="font-weight: bold">Micro-dashboard</p>
+					<hr><br>
+				
+		
+					<p th:text="'Employees quantity at db: ' + ${employees} "></p>
+					<p th:text="'Expenses quantity at db: ' + ${expenses} "></p>
+					<p th:text="'Employees quantity at db: ' + ${certificates} "></p>
+					<p th:text="'Certificates quantity at db: ' + ${courses} "></p>
+					<p th:text="'Enrollments quantity at db: ' + ${enrollments} "></p>
+					<p th:text="'Holidays quantity at db: ' + ${holidays} "></p><br>
+				</div><br>
+				<div class="w3-container w3-card-4 w3-center">
+					<hr>
+					<p style="font-weight: bold">How many entities do you want to
+						delete?</p>
+					<hr>
+
+					
+					<p>Delete all entities and registers in BD</p>
+
+					<a th:href="@{/deleteAll}"
+						class="w3-button w3-red">Delete all entities and registers in
+						BD</a>
+					<p></p>
+					<p></p>
+					
+					<hr>
+
 				</div>
 			</div>
 			
 			<!-- links  -->
 			<div class="w3-third">
 				<div class="w3-container w3-card-4 w3-center">
-					<p>Next to do: api rest links</p>
+				<hr>
+					<p style="font-weight: bold">Api rest links</p>
+					<hr>
+						<p>Api Rest Contoller from h2</p>
+					<a th:href="@{/webapi/allEmployees}"
+						class="w3-button w3-blue">All employees</a><p></p>
+						
+						<a th:href="@{/webapi/getEmployee/1}"
+						class="w3-button w3-blue">Get employee #</a><p></p>
+						
+						<a th:href="@{/webapi/deleteEmployee/1}"
+						class="w3-button w3-red">Delete employee #</a><p></p>
+						
+						<p>Api Rest Contoller from mongodb</p>
+						<a th:href="@{/getAllEmployeeImages}"
+						class="w3-button w3-teal">All employees images</a><p></p>
+						
+						<a th:href="@{/getEmployeeImage/?id=60f7cb2d579562673d1eb417}"
+						class="w3-button w3-teal">Get employees image</a><p></p>
+						
+						<hr>
 				</div>
 			</div>
 		

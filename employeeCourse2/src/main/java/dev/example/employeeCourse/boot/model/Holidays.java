@@ -43,6 +43,13 @@ public class Holidays {
 		this.daysHolidays = new ArrayList<Date>();
 	}
 	
+	public Holidays(int year, int officialYearHolidaysQty, Employee employee) {
+		super();
+		this.year = year;
+		this.officialYearHolidaysQty = officialYearHolidaysQty;
+		this.daysHolidays = new ArrayList<Date>();
+		this.employee = employee;
+	}
 	public int getId() {
 		return id;
 	}

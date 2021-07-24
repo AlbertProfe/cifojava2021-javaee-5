@@ -61,6 +61,21 @@ public class Course {
 		this.fee = fee;
 		this.teacher = teacher;
 	}
+	
+	
+
+	public Course(String room, boolean online, Date initDate, Date finishDate, String calendarCourse, double fee,
+			String teacher, Certificate certificate) {
+		super();
+		this.room = room;
+		this.online = online;
+		this.teacher = teacher;
+		this.initDate = initDate;
+		this.finishDate = finishDate;
+		this.calendarCourse = calendarCourse;
+		this.fee = fee;
+		this.certificate = certificate;
+	}
 
 	// we should modify this getter to better use
 	public void addEnrollment(Enrollment enrollment) {

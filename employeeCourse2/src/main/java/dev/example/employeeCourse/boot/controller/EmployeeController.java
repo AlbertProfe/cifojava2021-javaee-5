@@ -88,7 +88,7 @@ public class EmployeeController {
 
 		employeeRepository.deleteAll();
 
-		return "redirect:/employee/allEmployees";
+		return "redirect:/home";
 
 	}
 

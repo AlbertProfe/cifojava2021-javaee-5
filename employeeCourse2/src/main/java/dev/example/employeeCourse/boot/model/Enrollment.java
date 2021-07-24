@@ -43,22 +43,14 @@ public class Enrollment {
 	}
 
 	
-	public Enrollment(Date enrollmentDate, int testMark, boolean approved, Employee employee, Course course) {
-		super();
-		this.enrollmentDate = enrollmentDate;
-		this.testMark = testMark;
-		this.approved = approved;
-		this.employee = employee;
-		this.course = course;
-	}
+	
 
-	
-	
-	public Enrollment(Date enrollmentDate, int testMark, boolean approved, Employee employee) {
+	public Enrollment(Date enrollmentDate, int testMark, boolean approved, String status,Employee employee) {
 		super();
 		this.enrollmentDate = enrollmentDate;
 		this.testMark = testMark;
 		this.approved = approved;
+		this.status = status;
 		this.employee = employee;
 	}
 	
@@ -75,6 +67,7 @@ public class Enrollment {
 		this.course = course;
 	}
 
+	
 	public int getId() {
 		return id;
 	}
