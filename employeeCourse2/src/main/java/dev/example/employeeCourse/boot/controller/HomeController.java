@@ -100,7 +100,7 @@ public class HomeController {
 		int intRandom;
 
 		int year = 2019;
-		int employeecount = 1;
+		
 
 		// we create so many entities as qtyToCreate says ....
 		while (count <= qtyToCreate) {

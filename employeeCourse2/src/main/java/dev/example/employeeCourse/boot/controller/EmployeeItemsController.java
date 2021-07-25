@@ -77,7 +77,7 @@ public class EmployeeItemsController {
 					.findAllHolidaysByEmployee(employeeRepository.findById(id).get());
 
 			model.addAttribute("holidaysfromController", holidaysFound.get());
-
+			                     
 			return "employeeitems/detailemployee";
 		}
 
