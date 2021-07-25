@@ -11,7 +11,7 @@ JPA @Entity Employee and Images uploading/downloading
 
 ## employeeCourse (java-EE spring)
 
-- employeeCourse: 
+### employeeCourse: 
    - Application.properties: mongoDB and H2
    - Java classes JPA
        n:m TA as two @Entity and `1:n` `n:1` `1:n`
@@ -72,7 +72,7 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
 
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/employeeCourse.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/employeeCourse.png" width="500"></a>
 
-- employeeCourse3: 
+### employeeCourse3: 
    - Application.properties: mongoDB and H2
    - Layout and fragment
       - layout.html
