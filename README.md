@@ -32,7 +32,7 @@ JPA @Entity Employee and Images uploading/downloading
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/2021-07-MongoDB-000042.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/2021-07-MongoDB-000042.png" width="300"></a>
 
 
-- employeeCourse2: 
+###employeeCourse2: 
    - Application.properties: mongoDB and H2
    - Layout and fragment
       - layout.html
@@ -63,6 +63,8 @@ JPA @Entity Employee and Images uploading/downloading
       - Add Image:
         - upload image option (EmployeImage to mongoDB)
         -  `1:1 - bidirectional`  (EmployeImage <> Employee)
+
+Deployed on `Heroku`: https://employeecourse.herokuapp.com/
 
 screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifospring2021/mockup
 
