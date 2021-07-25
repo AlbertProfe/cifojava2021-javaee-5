@@ -85,8 +85,8 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
   - Rest Controller (Employee and EmployeeImage)
   - CommandLineRunner
        - HomeController Fill in entities in H2 and assign them
-       - Bug to fix *to do branch bugFillinEntities*
-  - Employee (Items detail)
+       - Bug to fix *to do employee @entity with string id from mongodb*
+  - Employee (Items detail) *to-do path to mognodb image via rest controller*
       - Courses
         - Add couse to employee
         - Update status
