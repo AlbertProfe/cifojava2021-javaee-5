@@ -127,11 +127,11 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
 
 `Upload an image wiht API Rest and Swagger:`
 
-
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image.png" width="600"></a>
 
 
 `Upload an image wiht API Rest and Swagger:`
+
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image2.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image2.png" width="600"></a>
 
 
@@ -140,9 +140,8 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image3.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image3.png" width="600"></a>
 
 
+`Download an image wiht API Rest and Swagger:`
 
-`Download an image wiht API Rest and Swagger:
-`
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image4.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/swaggerRest_image4.png" width="600"></a>
 
 
