@@ -34,6 +34,7 @@ JPA @Entity Employee and Images uploading/downloading
    - Layout and fragment
       - layout.html
       - layout_login.html
+      - layout_detail.html
    - Java classes JPA
       - n:m TA as two @Entity and `1:n` `n:1` `1:n`
       - Employee <> Expense (@Entity H2) `1:n` bidirectional
@@ -74,7 +75,6 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
    - Layout and fragment
       - layout.html
       - layout_login.html
-      - layout_detail.html *to-do*
    - Java classes JPA
       - n:m TA as two @Entity and `1:n` `n:1` `1:n`
       - Employee <> Expense (@Entity H2) `1:n` bidirectional
