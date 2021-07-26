@@ -68,7 +68,7 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
 
 `How layout works:`
 
-<a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout.png" width="500"></a>
+<a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout_0.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout_0.png" width="500"></a>
 
 `Employee JPA relationships:`
 
@@ -88,8 +88,11 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
   - Rest Controller (Employee and EmployeeImage)
   - CommandLineRunner
        - HomeController Fill in entities in H2 and assign them
-       - Employee @entity with `employeeImageId` string id from mongodb with  *to-do*
-  - Employee (Items detail) *to-do path to mognodb image via rest controller*
+       - Employee @entity
+         - `setEmployeeImageId` with `employeeImageId` string id from mongodb with  *to-do*
+  - Employee (Items detail)
+      - Empployee Detail
+        - Path (th:scr) to mognodb image from `getEmployeeImageId`  via rest controller *to-do*
       - Courses
         - Add couse to employee (insert date and status *to-do*)
         - Update status
