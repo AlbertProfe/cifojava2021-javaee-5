@@ -96,7 +96,7 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
       - Holidays
         - Add holidays date
         - Delete  holidays dates
-        - Create holidays
+        - Create holidays (rejects to create an existing year)
       - Upload Image
          - Rest Controller via Postman
       - Add Image:
