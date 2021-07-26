@@ -87,7 +87,7 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
        - Employee @entity with `employeeImageId` string id from mongodb with  *to-do*
   - Employee (Items detail) *to-do path to mognodb image via rest controller*
       - Courses
-        - Add couse to employee
+        - Add couse to employee (insert date and status *to-do*)
         - Update status
       - Expenses
         - Create expense
