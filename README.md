@@ -91,7 +91,7 @@ screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifosprin
         - Update status
       - Expenses
         - Create expense
-        - Delete expense
+        - Delete expense (afer deleting return to Expenses or crete new detail *to-do*)
         - Update expense
       - Holidays
         - Add holidays date
