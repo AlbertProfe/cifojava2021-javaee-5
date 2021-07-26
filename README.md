@@ -66,6 +66,10 @@ Deployed on `Heroku`: https://employeecourse.herokuapp.com/
 
 screenshoots from app: https://github.com/AlbertProfe/images/tree/main/cifospring2021/mockup
 
+`How layout works:`
+
+<a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/layout/layout.png" width="500"></a>
+
 `Employee JPA relationships:`
 
 <a href="https://github.com/AlbertProfe/images/blob/main/cifospring2021/employeeCourse.png"><img src="https://github.com/AlbertProfe/images/blob/main/cifospring2021/employeeCourse.png" width="500"></a>
